@@ -574,7 +574,8 @@
 <p>以上三个策略，React 分别对 tree diff、component diff 以及 element diff 进行算法优化，事实也证明这三个前提策略是合理且准确的，它保证了整体界面构建的性能。</p>
 <p><strong>tree diff</strong>:对树进行分层比较，两棵树只会对同一层次的节点进行比较。同一个父节点下的所有子节点。当发现节点已经不存在，则该节点及其子节点会被完全删除掉，不会用于进一步的比较。这样只需要对树进行一次遍历，便能完成整个 DOM 树的比较。如果出现 dom 节点跨层级的移动操作，因为该节点已经不在原来的 dom 树层， 所以会直接删除该节点，</p>
 <p><strong>component diff</strong>:如果是同一类型的组件，按照原策略继续比较 virtual DOM tree。对于同一类型的组件，有可能其 Virtual DOM 没有任何变化，如果能够确切的知道这点那可以节省大量的 diff 运算时间，因此 React 允许用户通过 shouldComponentUpdate() 来判断该组件是否需要进行 diff。如下图，当 component D 改变为 component G 时，即使这两个 component 结构相似，一旦 React 判断 D 和 G 是不同类型的组件，就不会比较二者的结构，而是直接删除 component D，重新创建 component G 以及其子节点。</p>
-<p><img src="https://github.com/PH2498/PH2498.github.io/blob/master/img/test/QQ%E6%88%AA%E5%9B%BE20210402095752.png?raw=true" srcset="/img/loading.gif" lazyload alt="img"></p>
+<!-- ![img](https://github.com/PH2498/PH2498.github.io/blob/master/img/test/QQ%E6%88%AA%E5%9B%BE20210402095752.png?raw=true) -->
+
 <p><strong>element dif</strong>:当节点处于同一层级时，React diff 提供了三种节点操作，分别为：INSERT_MARKUP（插入）、MOVE_EXISTING（移动）和 REMOVE_NODE（删除）。</p>
 </li>
 </ol>
