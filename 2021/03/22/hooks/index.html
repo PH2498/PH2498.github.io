@@ -1,0 +1,476 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="HOOKS1.useState() &#x2F;&#x2F;申明状态 12const [count, setCount] &#x3D; useState(1)&#x2F;&#x2F;变量名   修改参数的方法  修改参数方法的使用 1234567891011121314151617&lt;button        onClick&#x3D;&amp;#123;() &#x3D;&gt; &amp;#123;        			&#x2F;&#x2F;上一次的值prev          setCo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Hook">
+<meta property="og:url" content="http://example.com/2021/03/22/hooks/index.html">
+<meta property="og:site_name" content="HPX">
+<meta property="og:description" content="HOOKS1.useState() &#x2F;&#x2F;申明状态 12const [count, setCount] &#x3D; useState(1)&#x2F;&#x2F;变量名   修改参数的方法  修改参数方法的使用 1234567891011121314151617&lt;button        onClick&#x3D;&amp;#123;() &#x3D;&gt; &amp;#123;        			&#x2F;&#x2F;上一次的值prev          setCo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/react_hook/hookindex.jpg">
+<meta property="article:published_time" content="2021-03-22T07:55:23.179Z">
+<meta property="article:modified_time" content="2021-03-22T12:55:44.223Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/react_hook/hookindex.jpg">
+  
+  
+  <title>React Hook - HPX</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>HOME</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                联系我
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/react_hook/hookbanner.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="React Hook">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-22 15:55" pubdate>
+        2021年3月22日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      undefined 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      NaN 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">React Hook</h1>
+            
+            <div class="markdown-body">
+              <h2 id="HOOKS"><a href="#HOOKS" class="headerlink" title="HOOKS"></a>HOOKS</h2><p><strong>1.useState() //申明状态</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">1</span>)<br><span class="hljs-comment">//变量名   修改参数的方法</span><br></code></pre></td></tr></table></figure>
+
+<p>修改参数方法的使用</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs jsx">&lt;button<br>        onClick=&#123;<span class="hljs-function">() =&gt;</span> &#123;<br>        			<span class="hljs-comment">//上一次的值prev</span><br>          setCount(<span class="hljs-function">(<span class="hljs-params">prev</span>) =&gt;</span> &#123;<br>              		<span class="hljs-comment">//必须return</span><br>            <span class="hljs-keyword">return</span> (prev += <span class="hljs-number">1</span>)<br>          &#125;)<br>        &#125;&#125;<br>      &gt;<br>        dian<br>      &lt;/button&gt;<br>&lt;button<br>        onClick=&#123;<span class="hljs-function">() =&gt;</span> &#123;<br>          setCount(值)&#125;<br>      &gt;<br>        dian<br>      &lt;/button&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong>2.useEffect //副作用钩子 类似于生命周期</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs jsx">useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-comment">//每次修改都会触发</span><br>&#125;)<br>useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-comment">//首次渲染会触发</span><br>&#125;, [])<br>useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-comment">//依赖值变化会触发</span><br>&#125;, [依赖值])<br>useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> &#123;&#125;<br>  <span class="hljs-comment">//unmount会触发</span><br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p><strong>3.useRef //获取节点</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> rdom = useRef(<span class="hljs-string">&#x27;&#x27;</span>)<br>&lt;div className=<span class="hljs-string">&quot;App&quot;</span> ref=&#123;rdom&#125;&gt;&lt;/div&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong>4.usecontext //上下文向下传递参数</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> appcontext=React.createContext();<span class="hljs-comment">//初始化</span><br>&lt;appcontext..Provider value=&#123;&#123;<br>        username:传递的值<br>    &#125;&#125;&gt;<br>    &lt;组件一&gt;<br>        <span class="hljs-comment">//取值</span><br>    <span class="hljs-keyword">const</span> &#123; username &#125; = useContext(AppContext)<br>    &lt;/组件一&gt;<br>&lt;/appcontext..Provider&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong>5.userReducer //高级 usestate，小型仓库</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> [state, dispatch] = useReducer(reducer, &#123; <span class="hljs-attr">count2</span>: <span class="hljs-number">100</span> &#125;);<span class="hljs-comment">//申明</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reducer</span>(<span class="hljs-params">state, action</span>) </span>&#123;<span class="hljs-comment">//申明ruducer</span><br>		<span class="hljs-keyword">switch</span> (action.type) &#123;<br>			<span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;setCount2&#x27;</span>:<br>				state.count2 = action.data;<br>				<span class="hljs-keyword">break</span><br>		&#125;<br>		<span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">JSON</span>.stringify(state))<br>	&#125;<br><br>&lt;Button setCount=&#123;<span class="hljs-function">() =&gt;</span> &#123;<span class="hljs-comment">//使用</span><br>					dispatch(&#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;setCount2&#x27;</span>, <span class="hljs-attr">data</span>: <span class="hljs-number">1000000</span> &#125;)<br>				&#125;&#125;&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong>6.usecallback //缓存函数</strong></p>
+<p>简单来说就是返回一个函数，只有在依赖项发生变化的时候才会更新（返回一个新的函数）。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs jsx">;&lt;div&gt;<br>  &lt;Button onClickButton=&#123;handleClickButton2&#125;&gt;Button2&lt;/Button&gt;<br>&lt;/div&gt;<br><span class="hljs-keyword">const</span> [count2, setCount2] = useState(<span class="hljs-number">0</span>)<br><span class="hljs-keyword">const</span> handleClickButton2 = useCallback(<span class="hljs-function">() =&gt;</span> &#123;<br>  setCount2(count2 + <span class="hljs-number">1</span>)<br>&#125;, [count2])<br></code></pre></td></tr></table></figure>
+
+<p><strong>7.useMemo //缓存数据</strong></p>
+<p>简单来说就是传递一个创建函数和依赖项，创建函数会需要返回一个值，只有在依赖项发生改变的时候，才会重新调用此函数，返回一个新的值。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);<br><br><span class="hljs-keyword">const</span> userInfo = useMemo(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-comment">//一些昂贵的计算</span><br>&#125;, [count]);<br>	<span class="hljs-comment">//只有count改变时，userInfo才会更新，否则每次组件渲染函数都会更新</span><br><span class="hljs-keyword">return</span> &lt;UserCard&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="React-Fiber-纤维化"><a href="#React-Fiber-纤维化" class="headerlink" title="React Fiber(纤维化)"></a>React Fiber(纤维化)</h2><p><strong>破解 JavaScript 中同步操作时间过长，进行分片</strong></p>
+<p>在现有 React 中，更新过程是同步的，这可能会导致性能问题。</p>
+<p>当 React 决定要加载或者更新组件树时，会做很多事，比如调用各个组件的生命周期函数，计算和比对 Virtual DOM，最后更新 DOM 树，这整个过程是同步进行的，也就是说只要一个加载或者更新过程开始，那 React 就以不破楼兰终不还的气概，一鼓作气运行到底，中途绝不停歇。</p>
+<p>表面上看，这样的设计也是挺合理的，因为更新过程不会有任何 I/O 操作嘛，完全是 CPU 计算，所以无需异步操作，的确只要一路狂奔就行了，但是，当组件树比较庞大的时候，问题就来了。</p>
+<p>假如更新一个组件需要 1 毫秒，如果有 200 个组件要更新，那就需要 200 毫秒，在这 200 毫秒的更新过程中，浏览器那个唯一的主线程都在专心运行更新操作，无暇去做任何其他的事情。想象一下，在这 200 毫秒内，用户往一个 input 元素中输入点什么，敲击键盘也不会获得响应，因为渲染输入按键结果也是浏览器主线程的工作，但是浏览器主线程被 React 占着呢，抽不出空，最后的结果就是用户敲了按键看不到反应，等 React 更新过程结束之后，咔咔咔那些按键一下子出现在 input 元素里了。</p>
+<p>这就是所谓的界面卡顿，很不好的用户体验。</p>
+<p>现有的 React 版本，当组件树很大的时候就会出现这种问题，因为更新过程是同步地一层组件套一层组件，逐渐深入的过程，在更新完所有组件之前不停止，函数的调用栈就像下图这样，调用得很深，而且很长时间不会返回。</p>
+<p>因为 JavaScript 单线程的特点，每个同步任务不能耗时太长，不然就会让程序不会对其他输入作出相应，React 的更新过程就是犯了这个禁忌，而 React Fiber 就是要改变现状。</p>
+<p>React Fiber 的方式</p>
+<p>破解 JavaScript 中同步操作时间过长的方法其实很简单——分片。</p>
+<p>把一个耗时长的任务分成很多小片，每一个小片的运行时间很短，虽然总时间依然很长，但是在每个小片执行完之后，都给其他任务一个执行的机会，这样唯一的线程就不会被独占，其他任务依然有运行的机会。</p>
+<p>React Fiber 把更新过程碎片化，执行过程如下面的图所示，每执行完一段更新过程，就把控制权交还给 React 负责任务协调的模块，看看有没有其他紧急任务要做，如果没有就继续去更新，如果有紧急任务，那就去做紧急任务。</p>
+<p>维护每一个分片的数据结构，就是 Fiber。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/03/24/%E5%9C%A8umi%E4%B8%AD%E4%BD%BF%E7%94%A8dva/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">在umi中使用dva</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
