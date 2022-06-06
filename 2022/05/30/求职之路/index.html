@@ -13,26 +13,26 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="郝培贤">
   <meta name="keywords" content="">
   
     <meta name="description" content="求职之路JavaScript 讲讲js数据类型？基本和引用的区别？symbol和bigint讲一讲应用场景？基本数据类型：Boolean、Number、String、undefined、Null、Symbol (ES6 新增，表示独一无二的值)、bigint(表示任意大的整数) 引用数据类型：Object、Array、Function 区别： 存储：基本类型存于栈、引用类型存于堆 复制变量：基本类">
 <meta property="og:type" content="article">
-<meta property="og:title" content="求职之路(更新中...)">
+<meta property="og:title" content="求职之路">
 <meta property="og:url" content="http://example.com/2022/05/30/%E6%B1%82%E8%81%8C%E4%B9%8B%E8%B7%AF/index.html">
 <meta property="og:site_name" content="HPX">
 <meta property="og:description" content="求职之路JavaScript 讲讲js数据类型？基本和引用的区别？symbol和bigint讲一讲应用场景？基本数据类型：Boolean、Number、String、undefined、Null、Symbol (ES6 新增，表示独一无二的值)、bigint(表示任意大的整数) 引用数据类型：Object、Array、Function 区别： 存储：基本类型存于栈、引用类型存于堆 复制变量：基本类">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://github.com/PH2498/PH2498.github.io/blob/master/img/test/QQ%E6%88%AA%E5%9B%BE20210402095752.png?raw=true">
-<meta property="article:published_time" content="2022-05-30T14:35:30.878Z">
-<meta property="article:modified_time" content="2022-05-30T14:35:30.890Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:published_time" content="2022-05-30T15:10:19.874Z">
+<meta property="article:modified_time" content="2022-05-30T15:10:19.922Z">
+<meta property="article:author" content="郝培贤">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://github.com/PH2498/PH2498.github.io/blob/master/img/test/QQ%E6%88%AA%E5%9B%BE20210402095752.png?raw=true">
   
   
   
-  <title>求职之路(更新中...) - HPX</title>
+  <title>求职之路 - HPX</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -195,7 +195,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="求职之路(更新中...)"></span>
+            <span id="subtitle" data-typed-text="求职之路"></span>
           
         </div>
 
@@ -206,7 +206,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-05-30 22:35" pubdate>
+        <time datetime="2022-05-30 23:10" pubdate>
           2022年5月30日 晚上
         </time>
       </span>
@@ -219,7 +219,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          15k 字
+          13k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
           <!-- compatible with older versions-->
-          124 分钟
+          107 分钟
         
       </span>
     
@@ -269,7 +269,7 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">求职之路(更新中...)</h1>
+            <h1 style="display: none">求职之路</h1>
             
             <div class="markdown-body">
               
@@ -284,8 +284,6 @@
 <p><strong>symbol：独一无二的值创建值的时候不用使用 new</strong></p>
 <p><strong>bigint：它可以用来表示任意精度的整数值。可以用来“<a target="_blank" rel="noopener" href="https://developer.twitter.com/en/docs/basics/twitter-ids">超大的整数形式的 ID</a>“和“<a target="_blank" rel="noopener" href="https://github.com/nodejs/node/pull/20220">高精度时间戳</a>“</strong></p>
 </li>
-<li><p>遍历笔试题</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>;i&lt;arr.<span class="hljs-property">length</span>;i++)&#123;<br>        <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">()=&gt;</span>&#123;<br>          <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(i)<span class="hljs-comment">//3，3，3</span><br>        &#125;,<span class="hljs-number">0</span>)<br>      &#125;<span class="hljs-comment">//</span><br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i=<span class="hljs-number">0</span>;i&lt;arr.<span class="hljs-property">length</span>;i++)&#123;<br>        <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">()=&gt;</span>&#123;<br>          <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(i)<span class="hljs-comment">//1,2,3</span><br>        &#125;,<span class="hljs-number">0</span>)<br>      &#125;<br></code></pre></td></tr></table></figure></li>
 <li><p>实现一个克隆函数</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">clone</span>(<span class="hljs-params">Obj</span>) &#123;<br>  <span class="hljs-keyword">var</span> buf<br>  <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Obj</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Array</span>) &#123;<br>    buf = []<br>    <span class="hljs-keyword">var</span> i = <span class="hljs-title class_">Obj</span>.<span class="hljs-property">length</span><br>    <span class="hljs-keyword">while</span> (i--) &#123;<br>      buf[i] = <span class="hljs-title function_">clone</span>(<span class="hljs-title class_">Obj</span>[i])<br>    &#125;<br>    <span class="hljs-keyword">return</span> buf<br>  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Obj</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Object</span>) &#123;<br>    buf = &#123;&#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> k <span class="hljs-keyword">in</span> <span class="hljs-title class_">Obj</span>) &#123;<br>      buf[k] = <span class="hljs-title function_">clone</span>(<span class="hljs-title class_">Obj</span>[k])<br>    &#125;<br>    <span class="hljs-keyword">return</span> buf<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Obj</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 <li><h4 id="判断数据类型的方法？instanceof原理-判断空对象？-typof-null？typeof-NaN？"><a href="#判断数据类型的方法？instanceof原理-判断空对象？-typof-null？typeof-NaN？" class="headerlink" title="判断数据类型的方法？instanceof原理?判断空对象？ typof null？typeof NaN？"></a>判断数据类型的方法？<code>instanceof</code>原理?判断<code>空对象</code>？ <code>typof null</code>？<code>typeof NaN</code>？</h4><p>typeof：判断基本类型比引用类型准确，返回字符串</p>
@@ -314,42 +312,24 @@
 <li><h4 id="闭包概念，最主要的还是问闭包的场景？"><a href="#闭包概念，最主要的还是问闭包的场景？" class="headerlink" title="闭包概念，最主要的还是问闭包的场景？"></a>闭包概念，最主要的还是问<code>闭包的场景</code>？</h4><p><strong>闭包</strong>是指有权访问另一个函数作用域中的变量的函数。</p>
 <p><strong>场景</strong>：为节点循环绑定 click 事件、延续局部变量的寿命、对结果进行缓存</p>
 </li>
-<li><h4 id="用es5实现es6类的继承？各种继承问的挺多的"><a href="#用es5实现es6类的继承？各种继承问的挺多的" class="headerlink" title="用es5实现es6类的继承？各种继承问的挺多的"></a>用<code>es5实现es6</code>类的继承？各种继承问的挺多的</h4></li>
-</ol>
-<p>   <strong>原型链继承 ：</strong></p>
-<pre><code class="hljs">核心：将父类的实例作为子类的原型
-
-优点：父类方法可以复用
-
-缺点：
-
-父类的引用属性会被所有子类实例共享
-
-子类构建实例时不能向父类传递参数
-</code></pre>
-<h5 id="构造函数继承-："><a href="#构造函数继承-：" class="headerlink" title="构造函数继承 ："></a>构造函数继承 ：</h5><pre><code class="hljs">核心：将父类构造函数的内容复制给了子类的构造函数。这是所有继承中唯一一个不涉及到 prototype 的继承。
-
-优点：和原型链继承完全反过来。
-
-父类的引用属性不会被共享
-
-子类构建实例时可以向父类传递参数
-
-缺点：父类的方法不能复用，子类实例的方法每次都是单独创建的。
-</code></pre>
-<p>   <strong>组合继承 ：</strong></p>
-<pre><code class="hljs">核心：原型式继承和构造函数继承的组合，兼具了二者的优点。
-
-优点：父类的方法可以被复用
-
-父类的引用属性不会被共享
-
-子类构建实例时可以向父类传递参数
-
-缺点：
-</code></pre>
-<p>   调用了两次父类的构造函数，第一次给子类的原型添加了父类的 name, arr 属性，第二次又给子类的构造函数添加了父类的 name, arr 属性，从而覆盖了子类原型中的同名参数。这种被覆盖的情况造成了性能上的浪费。</p>
-<ol start="11">
+<li><h4 id="用es5实现es6类的继承？各种继承问的挺多的"><a href="#用es5实现es6类的继承？各种继承问的挺多的" class="headerlink" title="用es5实现es6类的继承？各种继承问的挺多的"></a>用<code>es5实现es6</code>类的继承？各种继承问的挺多的</h4><p><strong>原型链继承 ：</strong></p>
+<p> 核心：将父类的实例作为子类的原型</p>
+<p> 优点：父类方法可以复用</p>
+<p> 缺点：</p>
+<p> 父类的引用属性会被所有子类实例共享</p>
+<p> 子类构建实例时不能向父类传递参数</p>
+<h5 id="构造函数继承-："><a href="#构造函数继承-：" class="headerlink" title="构造函数继承 ："></a>构造函数继承 ：</h5><p> 核心：将父类构造函数的内容复制给了子类的构造函数。这是所有继承中唯一一个不涉及到 prototype 的继承。</p>
+<p> 优点：和原型链继承完全反过来。</p>
+<p> 父类的引用属性不会被共享</p>
+<p> 子类构建实例时可以向父类传递参数</p>
+<p> 缺点：父类的方法不能复用，子类实例的方法每次都是单独创建的。</p>
+<p><strong>组合继承 ：</strong></p>
+<p> 核心：原型式继承和构造函数继承的组合，兼具了二者的优点。</p>
+<p> 优点：父类的方法可以被复用</p>
+<p> 父类的引用属性不会被共享</p>
+<p> 子类构建实例时可以向父类传递参数</p>
+<p> 缺点：<br>调用了两次父类的构造函数，第一次给子类的原型添加了父类的 name, arr 属性，第二次又给子类的构造函数添加了父类的 name, arr 属性，从而覆盖了子类原型中的同名参数。这种被覆盖的情况造成了性能上的浪费。</p>
+</li>
 <li><h4 id="深拷贝与浅拷贝？常用方法？手写一个深拷贝函数？"><a href="#深拷贝与浅拷贝？常用方法？手写一个深拷贝函数？" class="headerlink" title="深拷贝与浅拷贝？常用方法？手写一个深拷贝函数？"></a>深拷贝与浅拷贝？常用方法？手写一个<code>深拷贝函数</code>？</h4></li>
 </ol>
 <p>浅拷贝只复制指向某个对象的指针，而不复制对象本身，新旧对象还是共享同一块内存。但深拷贝会另外创造一个一模一样的对象，新对象跟原对象不共享内存，修改新对象不会改到原对象。</p>
@@ -466,8 +446,6 @@
 </li>
 </ol>
 <h2 id="Http-amp-amp-浏览器"><a href="#Http-amp-amp-浏览器" class="headerlink" title="Http &amp;&amp; 浏览器"></a>Http &amp;&amp; 浏览器</h2><ol>
-<li><h4 id="xss攻击"><a href="#xss攻击" class="headerlink" title="xss攻击"></a>xss攻击</h4><p>参见<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903781704925191#heading-5">https://juejin.cn/post/6844903781704925191#heading-5</a></p>
-</li>
 <li><h4 id="浏览器缓存？http-缓存？-主要要讲一讲强缓存、协商缓存、preload、prefetch、Service-Worker-等，304的含义？协商缓存e-tag是怎么生成的？Last-Modified是基于什么生成的？两者对比一下？优先级哪个高？"><a href="#浏览器缓存？http-缓存？-主要要讲一讲强缓存、协商缓存、preload、prefetch、Service-Worker-等，304的含义？协商缓存e-tag是怎么生成的？Last-Modified是基于什么生成的？两者对比一下？优先级哪个高？" class="headerlink" title="浏览器缓存？http 缓存？ 主要要讲一讲强缓存、协商缓存、preload、prefetch、Service Worker 等，304的含义？协商缓存e-tag是怎么生成的？Last-Modified是基于什么生成的？两者对比一下？优先级哪个高？"></a>浏览器<code>缓存</code>？http 缓存？ 主要要<code>讲一讲</code>强缓存、协商缓存、preload、prefetch、Service Worker 等，<code>304</code>的含义？协商缓存<code>e-tag</code>是怎么生成的？<code>Last-Modified</code>是基于什么生成的？两者对比一下？<code>优先级</code>哪个高？</h4><p><strong>浏览器缓存</strong>：当浏览器请求一个网站的时候，会加载各种各样的资源，比如：HTML 文档、图片、CSS 和 JS 等文件。对于一些不经常变的内容，浏览器会将他们保存在本地的文件中，下次访问相同网站的时候，直接加载这些资源，加速访问。</p>
 <p><strong>浏览器缓存的好处</strong>：<strong>（1）减少页面加载时间；（2）减少服务器负载；</strong></p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs text"><br>1）浏览器在加载资源时，先根据这个资源的一些http header判断它是否命中强缓存，**强缓存如果命中，浏览器直接从自己的缓存中读取资源，不会发请求到服务器**。比如：某个css文件，如果浏览器在加载它所在的网页时，这个css文件的缓存配置命中了强缓存，浏览器就直接从缓存中加载这个css，连请求都不会发送到网页所在服务器；<br><br>2）当强缓存没有命中的时候，浏览器一定会发送一个请求到服务器，**通过服务器端依据资源的另外一些http header验证这个资源是否命中协商缓存**，如果协商缓存命中，服务器会将这个请求返回，**但是不会返回这个资源的数据，而是告诉客户端可以直接从缓存中加载这个资源**，于是浏览器就又会从自己的缓存中去加载这个资源；<br><br>3）强缓存与协商缓存的共同点是：**如果命中，都是从客户端缓存中加载资源，而不是从服务器加载资源数据**；区别是：**强缓存不发请求到服务器，协商缓存会发请求到服务器**。<br><br>4）当协商缓存也没有命中的时候，浏览器直接从服务器加载资源数据。<br></code></pre></td></tr></table></figure>
@@ -536,9 +514,6 @@
 </ol>
 <h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><ol>
 <li><h4 id="生命周期？那个生命周期可以获取到真实DOM？修改data里面的数据，会触发什么生命周期？"><a href="#生命周期？那个生命周期可以获取到真实DOM？修改data里面的数据，会触发什么生命周期？" class="headerlink" title="生命周期？那个生命周期可以获取到真实DOM？修改data里面的数据，会触发什么生命周期？"></a>生命周期？那个生命周期可以获取到<code>真实DOM</code>？<code>修改data</code>里面的数据，会触发什么生命周期？</h4></li>
-<li><h4 id="vuex长效存储"><a href="#vuex长效存储" class="headerlink" title="vuex长效存储"></a>vuex长效存储</h4><p>第一种：利用本地存储</p>
-<p>第二种：第三方包vuex-persistedstate</p>
-</li>
 <li><h4 id="组件-data-为什么是一个函数？"><a href="#组件-data-为什么是一个函数？" class="headerlink" title="组件 data 为什么是一个函数？"></a>组件 data 为什么是一个<code>函数</code>？</h4></li>
 <li><h4 id="vue-组件通信？一般说了vuex，就会问-vuex-用法？action和mutations区别？实现原理等？"><a href="#vue-组件通信？一般说了vuex，就会问-vuex-用法？action和mutations区别？实现原理等？" class="headerlink" title="vue 组件通信？一般说了vuex，就会问 vuex 用法？action和mutations区别？实现原理等？"></a>vue 组件通信？一般说了<code>vuex</code>，就会问 vuex 用法？<code>action</code>和<code>mutations</code>区别？实现原理等？</h4></li>
 <li><h4 id="vue-导航守卫，分全局和组件的，一般用于权限控制，这个就可能扯到项目中的一些鉴权问题。"><a href="#vue-导航守卫，分全局和组件的，一般用于权限控制，这个就可能扯到项目中的一些鉴权问题。" class="headerlink" title="vue 导航守卫，分全局和组件的，一般用于权限控制，这个就可能扯到项目中的一些鉴权问题。"></a>vue <code>导航守卫</code>，分全局和组件的，一般用于权限控制，这个就可能扯到项目中的一些<code>鉴权问题</code>。</h4></li>
@@ -623,50 +598,6 @@
 <p><strong>element dif</strong>:当节点处于同一层级时，React diff 提供了三种节点操作，分别为：INSERT_MARKUP（插入）、MOVE_EXISTING（移动）和 REMOVE_NODE（删除）。</p>
 </li>
 </ol>
-<h2 id="移动端适配及兼容"><a href="#移动端适配及兼容" class="headerlink" title="移动端适配及兼容"></a>移动端适配及兼容</h2><h4 id="1-移动端300ms延迟原因"><a href="#1-移动端300ms延迟原因" class="headerlink" title="1.移动端300ms延迟原因"></a>1.移动端300ms延迟原因</h4><p>移动端双击会放大，如果在300ms内点击两次就会判定为要放大页面。</p>
-<p><strong>解决方案：</strong></p>
-<ol>
-<li>faskclick </li>
-</ol>
-<ul>
-<li>原理: 在检测到touchend事件的时候，会通过DOM自定义事件立即出发模拟一个click事件，并把浏览器在300ms之后真正的click事件阻止掉</li>
-<li>缺点: 脚本相对较大, 不建议使用</li>
-</ul>
-<p>2.禁用游览器缩放</p>
-<p>在html的mate标签里禁用缩放</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;user-scalable=no&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;initial-scale=1, maximum-scale=1&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure>
-
-<p>禁用缩放功能就不会有300ms延迟，但是也会禁用所有的缩放功能，比如：双指放大功能；</p>
-<p>3.更改默认的视口宽度</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure>
-
-<p>设置这个meta标签，页面会认为不需要双击事件，这个站点已经做过相应的优化。用户仍可以实现双指缩放。</p>
-<p><strong>走过的弯路（用touch代替click）</strong></p>
-<p>第一：touchstart是手指触摸屏幕就触发，有时候用户只是想滑动屏幕，却触发了touchstart事件，这不是我们想要的结果；</p>
-<p>第二：使用touchstart事件在某些场景下可能会出现点击穿透的现象。</p>
-<p><strong>点击穿透</strong></p>
-<p>假如页面上有两个元素A和B。B元素在A元素之上。我们在B元素的touchstart事件上注册了一个回调函数，该回调函数的作用是隐藏B元素。我们发现，当我们点击B元素，B元素被隐藏了，随后，A元素触发了click事件。</p>
-<p>因为在移动端的时间执行是touchstart &gt; touchend &gt; click而click事件有300ms的延迟，当touchstart事件把B元素隐藏之后，隔了300ms，浏览器触发了click事件，但是此时B元素不见了，所以该事件被派发到了A元素身上。如果A元素是一个链接，那此时页面就会意外地跳转。</p>
-<h4 id="2-移动端rem适配"><a href="#2-移动端rem适配" class="headerlink" title="2.移动端rem适配"></a>2.移动端rem适配</h4><p>简单介绍下rem和px的换算关系：1rem=html的font-size；<br>比如：html{font-size:100px},那么1rem就等于100px;</p>
-<p><strong>早期</strong></p>
-<p>假如设计稿是375，动态获取屏幕宽度除以设计稿的比例。即：html的font-size=(屏幕宽/375)*100+’px’;</p>
-<p><strong>rem缺陷</strong></p>
-<p>如果用户改变了手机的字体大小，而且我们的页面样式的宽用了rem,比如{width:1rem},那么页面的宽就会成倍增长，导致页面乱掉。。。还没找到办法解决，宽度还是先避免使用rem的好。</p>
-<p><strong>最近</strong></p>
-<p>使用webpack自动化的一个包,代码还是写的px，打包后输出rem</p>
-<p>第一步</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install postcss-px2rem postcss --save<br></code></pre></td></tr></table></figure>
-
-<p>第二步，在 webpack.base.conf.js中 引入</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> webpack = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;webpack&#x27;</span>) <br><span class="hljs-keyword">const</span> px2rem = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;postcss-px2rem&#x27;</span>) <br><span class="hljs-keyword">const</span> postcss = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;postcss&#x27;</span>) <br></code></pre></td></tr></table></figure>
-
-<p>第三步 在module中添加如下代码</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">plugins</span>: \[ <span class="hljs-keyword">new</span> webpack.<span class="hljs-title class_">LoaderOptionsPlugin</span>(&#123; <br><span class="hljs-attr">vue</span>: &#123; <br>      <span class="hljs-attr">postcss</span>: \[<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;postcss-px2rem&#x27;</span>)(&#123; <br>      <span class="hljs-attr">remUnit</span>: <span class="hljs-number">75</span>, <span class="hljs-attr">propWhiteList</span>: \[\] &#125;)\] &#125;, <br>      &#125;) \], <br></code></pre></td></tr></table></figure>
-
-<p>第四步 在rules中加如下代码，css我是用到sass，所以需要引入对应的loader，不需要的可不写。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">&#123; <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\\.(css|less|scss)(\\?.\*)?$/</span>, <br>  <span class="hljs-attr">loader</span>: <span class="hljs-string">&#x27;style-loader!css-loader!sass-loader!less-loader!postcss-loader&#x27;</span> &#125;<span class="hljs-string">`</span><br></code></pre></td></tr></table></figure>
-
-<p>参见<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000014502172">https://segmentfault.com/a/1190000014502172</a></p>
 
               
             </div>
@@ -683,14 +614,14 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>求职之路(更新中...)</div>
+      <div>求职之路</div>
       <div>http://example.com/2022/05/30/求职之路/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
           <div>作者</div>
-          <div>John Doe</div>
+          <div>郝培贤</div>
         </div>
       
       
@@ -726,9 +657,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/05/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3umi+dav/" title="深入理解umi+dav">
+                      <a href="/2022/05/30/%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BEAPI/" title="百度地图API（地图找房案例）">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">深入理解umi+dav</span>
+                        <span class="hidden-mobile">百度地图API（地图找房案例）</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -736,8 +667,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/05/30/%E4%BA%94%E5%88%86%E9%92%9F%E4%B8%8A%E6%89%8BEgg.js/" title="五分钟上手Egg.js">
-                        <span class="hidden-mobile">五分钟上手Egg.js</span>
+                      <a href="/2022/05/30/%E7%90%86%E8%A7%A3%20JavaScript%20%E4%B8%AD%E7%9A%84%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0/" title="高阶函数">
+                        <span class="hidden-mobile">高阶函数</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

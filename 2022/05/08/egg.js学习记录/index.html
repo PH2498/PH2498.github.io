@@ -13,7 +13,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="郝培贤">
   <meta name="keywords" content="">
   
     <meta name="description" content="egg.js学习初级1.脚手架及配置​    官网：https:&#x2F;&#x2F;www.eggjs.org&#x2F; ​    安装命令     123$ npm init egg --type&#x3D;simple$ npm i$ npm run dev  ​    配置注意项：post请求会有csrf安全拦截需要在config.default.js中关闭 12345config.security &#x3D; &amp;#123;">
@@ -24,8 +24,8 @@
 <meta property="og:description" content="egg.js学习初级1.脚手架及配置​    官网：https:&#x2F;&#x2F;www.eggjs.org&#x2F; ​    安装命令     123$ npm init egg --type&#x3D;simple$ npm i$ npm run dev  ​    配置注意项：post请求会有csrf安全拦截需要在config.default.js中关闭 12345config.security &#x3D; &amp;#123;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-08T06:53:00.169Z">
-<meta property="article:modified_time" content="2022-05-30T13:49:21.850Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:modified_time" content="2022-06-06T13:20:06.984Z">
+<meta property="article:author" content="郝培贤">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -217,7 +217,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          11k 字
+          12k 字
         
       </span>
     
@@ -229,7 +229,7 @@
         
         
           <!-- compatible with older versions-->
-          94 分钟
+          98 分钟
         
       </span>
     
@@ -438,6 +438,9 @@
 <p>2.创建表</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-operator">/</span><span class="hljs-operator">/</span>使用某个数据库<br>use 库名<br><span class="hljs-operator">/</span><span class="hljs-operator">/</span>创建表<br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> 表名称(<br>	<span class="hljs-operator">/</span><span class="hljs-operator">/</span>字段名 长度 不为<span class="hljs-keyword">null</span> 自增<br>	id <span class="hljs-type">int</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> auto_increment,<br>	<span class="hljs-operator">/</span><span class="hljs-operator">/</span>字段名 长度 不为<span class="hljs-keyword">null</span> 默认值 注释<br>	name <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">default</span> <span class="hljs-string">&#x27;admin&#x27;</span> comment <span class="hljs-string">&#x27;用户名&#x27;</span>,<br>	<span class="hljs-operator">/</span><span class="hljs-operator">/</span>字段名 长度 不为<span class="hljs-keyword">null</span> 注释<br>	pwd <span class="hljs-type">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;密码&#x27;</span>,<br>	<span class="hljs-operator">/</span><span class="hljs-operator">/</span>主键为id<br>	<span class="hljs-keyword">primary</span> key(id)<br><span class="hljs-operator">/</span><span class="hljs-operator">/</span>InnoDb引擎 utf8编码<br>)engine<span class="hljs-operator">=</span>InnoDB charset<span class="hljs-operator">=</span>utfb;<br><br><span class="hljs-operator">/</span><span class="hljs-operator">/</span>案例<br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">user</span>(<br>	id <span class="hljs-type">int</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> auto_increment,<br>	name <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">default</span> <span class="hljs-string">&#x27;admin&#x27;</span> comment <span class="hljs-string">&#x27;用户名&#x27;</span>,<br>	pwd <span class="hljs-type">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;密码&#x27;</span>,<br>	<span class="hljs-keyword">primary</span> key(id)<br>)engine<span class="hljs-operator">=</span>InnoDB charset<span class="hljs-operator">=</span>utf8;<br><br><span class="hljs-operator">/</span><span class="hljs-operator">/</span>插入表数据(在<span class="hljs-keyword">user</span>表中添加值)<br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">values</span>(<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;user1&#x27;</span>,<span class="hljs-string">&#x27;123&#x27;</span>);<br><span class="hljs-operator">/</span><span class="hljs-operator">/</span><span class="hljs-keyword">or</span><br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">user</span>(name,pwd) <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;user2&#x27;</span>,<span class="hljs-string">&#x27;123&#x27;</span>);<br><br><span class="hljs-operator">/</span><span class="hljs-operator">/</span>查询表数据<br><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span>;<span class="hljs-operator">/</span><span class="hljs-operator">/</span>查询<span class="hljs-keyword">user</span>中所有值<br><span class="hljs-keyword">select</span> id, name <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span>;<span class="hljs-operator">/</span><span class="hljs-operator">/</span>查询<span class="hljs-keyword">user</span>中所有值展示id和name<br><span class="hljs-keyword">select</span> id,name <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> id<span class="hljs-operator">=</span><span class="hljs-number">1</span>;<span class="hljs-operator">/</span><span class="hljs-operator">/</span>查询<span class="hljs-keyword">user</span>表中id为<span class="hljs-number">1</span>的数据并展示id和name<br><br><span class="hljs-operator">/</span><span class="hljs-operator">/</span>修改表数据<br><span class="hljs-keyword">update</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">set</span> pwd<span class="hljs-operator">=</span><span class="hljs-string">&#x27;aaaa&#x27;</span> <span class="hljs-keyword">where</span> id<span class="hljs-operator">=</span><span class="hljs-number">1</span>;<span class="hljs-operator">/</span><span class="hljs-operator">/</span>在<span class="hljs-keyword">user</span>表中将id为<span class="hljs-number">1</span>的数据的pwd字段设为aaaa<br><br><span class="hljs-operator">/</span><span class="hljs-operator">/</span>删除表数据<br><span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> id<span class="hljs-operator">=</span><span class="hljs-number">1</span>; <span class="hljs-operator">/</span><span class="hljs-operator">/</span><span class="hljs-keyword">user</span>表中删除id为<span class="hljs-number">1</span>的数据<br></code></pre></td></tr></table></figure>
 
+<h3 id="2-egg中的mysql插件"><a href="#2-egg中的mysql插件" class="headerlink" title="2.egg中的mysql插件"></a>2.egg中的mysql插件</h3><p>Egg-mysql<br>安装 npm i egg-mysql</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs txt">npm i --save egg-mysql //安装<br>// config/plugin.js（开启插件）<br>exports.mysql = &#123;<br>  enable: true,<br>  package: &#x27;egg-mysql&#x27;,<br>&#125;;<br><br>//链接数据库config.default.js<br>  config.mysql = &#123;<br>    app: true,//挂载到app<br>    agent:false,<br>    client:&#123;//数据库信息配置<br>      host:&#x27;127.0.0.1&#x27;,<br>      port:&quot;3306&quot;,<br>      user:&quot;root&quot;,<br>      password:&quot;Ph249855&quot;,<br>      database:&quot;egg&quot;<br>    &#125;<br>  &#125;<br></code></pre></td></tr></table></figure>
+
 
               
             </div>
@@ -461,7 +464,7 @@
       
         <div class="license-meta-item">
           <div>作者</div>
-          <div>John Doe</div>
+          <div>郝培贤</div>
         </div>
       
       
@@ -497,9 +500,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/05/30/hooks/" title="React Hook">
+                      <a href="/2022/05/30/Taro%E5%AD%A6%E4%B9%A0/" title="Taro多端开发">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">React Hook</span>
+                        <span class="hidden-mobile">Taro多端开发</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
