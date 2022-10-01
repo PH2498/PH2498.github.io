@@ -1,0 +1,818 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="郝培贤">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="egg.js学习初级1.脚手架及配置​    官网：https:&#x2F;&#x2F;www.eggjs.org&#x2F; ​    安装命令     123$ npm init egg --type&#x3D;simple$ npm i$ npm run dev  ​    配置注意项：post请求会有csrf安全拦截需要在config.default.js中关闭 12345config.security &#x3D; &amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Egg.js学习">
+<meta property="og:url" content="http://example.com/2022/05/08/egg.js%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="HPX">
+<meta property="og:description" content="egg.js学习初级1.脚手架及配置​    官网：https:&#x2F;&#x2F;www.eggjs.org&#x2F; ​    安装命令     123$ npm init egg --type&#x3D;simple$ npm i$ npm run dev  ​    配置注意项：post请求会有csrf安全拦截需要在config.default.js中关闭 12345config.security &#x3D; &amp;#123;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-05-08T06:53:00.169Z">
+<meta property="article:modified_time" content="2022-06-06T13:20:06.984Z">
+<meta property="article:author" content="郝培贤">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Egg.js学习 - HPX</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>HOME</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                联系我
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Egg.js学习"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-05-08 14:53" pubdate>
+          2022年5月8日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          12k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          98 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Egg.js学习</h1>
+            
+            <div class="markdown-body">
+              
+              <h1 id="egg-js学习"><a href="#egg-js学习" class="headerlink" title="egg.js学习"></a>egg.js学习</h1><h2 id="初级"><a href="#初级" class="headerlink" title="初级"></a>初级</h2><h3 id="1-脚手架及配置"><a href="#1-脚手架及配置" class="headerlink" title="1.脚手架及配置"></a>1.脚手架及配置</h3><p>​    官网：<a target="_blank" rel="noopener" href="https://www.eggjs.org/">https://www.eggjs.org/</a></p>
+<p>​    安装命令    </p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$</span> npm init egg <span class="hljs-literal">--type</span>=simple<br><span class="hljs-variable">$</span> npm i<br><span class="hljs-variable">$</span> npm run dev<br></code></pre></td></tr></table></figure>
+
+<p>​    配置注意项：post请求会有csrf安全拦截需要在config.default.js中关闭</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">config.<span class="hljs-property">security</span> = &#123;<br>    <span class="hljs-attr">csrf</span>: &#123;<br>      <span class="hljs-attr">enable</span>: <span class="hljs-literal">false</span>,<br>    &#125;,<br>  &#125;;<br></code></pre></td></tr></table></figure>
+
+<p>一些插件：</p>
+<p>​    egg-validate：检验前端传入的参数类型</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs txt">//npm i egg-validate  安装<br><br>//plugin.js中配置插件<br>exports.validate = &#123;<br>  enable: true,<br>  package: &#x27;egg-validate&#x27;,<br>&#125;;<br><br><br>//controller使用<br>const rule = &#123;<br>name: &#123; type: &quot;string&quot; &#125;,<br>age: &#123; type: &quot;number&quot; &#125;<br>&#125;<br>ctx.validate(rule)<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-controller-控制器"><a href="#2-controller-控制器" class="headerlink" title="2.controller(控制器)"></a>2.controller(控制器)</h3><p>​    控制器需要和路由配合使用，路由相当于控制器的入口</p>
+<p>​    命名规范：文件名小写（home.js）、声明的class需要大驼峰+Controller(HomeController)</p>
+<p>​    controller模版：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title class_">Controller</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;egg&#x27;</span>).<span class="hljs-property">Controller</span>;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">HomeController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Controller</span> &#123;<br>  <span class="hljs-keyword">async</span> <span class="hljs-title function_">index</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> &#123; ctx &#125; = <span class="hljs-variable language_">this</span>;<br>    ctx.<span class="hljs-property">body</span> = <span class="hljs-string">&#x27;hi, egg&#x27;</span>;<br>  &#125;<br>&#125;<br><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-title class_">HomeController</span>;<br></code></pre></td></tr></table></figure>
+
+<p>请求传参：</p>
+<p>​    get(querystring传参/问号传参)：ctx.query||ctx.queries;</p>
+<p>​    get(动态传参/斜杠冒号传参)：ctx.params;</p>
+<p>​    post|put|del(传参一致)：ctx.request.body</p>
+<h3 id="3-service"><a href="#3-service" class="headerlink" title="3.service"></a>3.service</h3><p>​    安装依赖 egg-view-ejs</p>
+<p>​    在plugin文件里启用模版引擎</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">exports</span>.<span class="hljs-property">ejs</span>=&#123;<br>  <span class="hljs-attr">enable</span>:<span class="hljs-literal">true</span>,<br>  <span class="hljs-attr">package</span>:<span class="hljs-string">&#x27;egg-view-ejs&#x27;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>​    命名规则与控制器一致：文件名小写（home.js）、声明的class需要大驼峰      +Controller(HomeService)</p>
+<p>  模版：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title class_">Service</span>=<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;egg&quot;</span>).<span class="hljs-property">Service</span>;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">UserService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Service</span>&#123;<br>	<span class="hljs-keyword">async</span> <span class="hljs-title function_">index</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-keyword">return</span> &#123;<br>		<span class="hljs-comment">//返回数据	</span><br>    &#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>=<span class="hljs-title class_">UserService</span>;<br><br><span class="hljs-comment">//在contriller中使用(异步需要加await)</span><br><span class="hljs-keyword">const</span> res= <span class="hljs-keyword">await</span> ctx.<span class="hljs-property">service</span>.<span class="hljs-property">user</span>.<span class="hljs-title function_">index</span>();<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-egg模版引擎及静态资源"><a href="#4-egg模版引擎及静态资源" class="headerlink" title="4.egg模版引擎及静态资源"></a>4.egg模版引擎及静态资源</h3><p>controller中使用ctx.render()函数渲染。有三个参数（文件名：默认为view文件夹下；数据参数；ejs配置：特殊字符）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">await</span> ctx.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;user.html&#x27;</span>,&#123;<br>     <span class="hljs-attr">id</span>:<span class="hljs-number">100</span>,<br>     <span class="hljs-attr">name</span>:<span class="hljs-string">&quot;admin&quot;</span>,<br>     <span class="hljs-attr">list</span>:[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]<br>   &#125;,&#123;<br>     <span class="hljs-attr">delimiter</span>:<span class="hljs-string">&quot;%&quot;</span><span class="hljs-comment">//通过delimiter可将要渲染的文件局部采用某个特殊字符</span><br>   &#125;)<br></code></pre></td></tr></table></figure>
+
+<p>​    ejs模版使用方法：</p>
+<p>​            ejs注释为尖括号喝特殊字符家井号 默认特殊字符为百分号</p>
+<p>​            ejs展示为尖括号和特殊字符包裹js代码 默认特殊字符为百分号</p>
+<p>​            只展示变量时需要加等于号</p>
+<p>​            ejs想要书写一下js代码不需要加等于号 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;!-- ejs注释为尖括号喝特殊字符家井号 默认特殊字符为百分号（案例如下） --&gt;<br>    &lt;%# 这里是注释 %&gt;<br>    &lt;!-- ejs展示为尖括号和特殊字符包裹js代码 默认特殊字符为百分号--&gt;<br>    &lt;!-- 只展示变量时需要加等于号 （案例如下）--&gt;<br>    &lt;h1&gt;user模版&lt;/h1&gt;<br>    &lt;h2&gt;id: &lt;%= id%&gt;&lt;/h2&gt;<br>    &lt;h2&gt;name: &lt;%= name%&gt;&lt;/h2&gt;<br>    &lt;!-- ejs想要书写一下代码不需要加等于号 （案例如下） --&gt;<br>    &lt;%for(let i=0;i&lt;list.length;i++)&#123;%&gt;<br>       &lt;p&gt;&lt;%= list[i]%&gt;&lt;/p&gt;<br>    &lt;%&#125;%&gt;<br></code></pre></td></tr></table></figure>
+
+<p>Config.default.js下模版引擎的相关配置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> path=<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;path&quot;</span>)<br><span class="hljs-comment">//配置模版引擎</span><br>config.<span class="hljs-property">view</span> = &#123;<br>  <span class="hljs-attr">mapping</span>: &#123;<br>    <span class="hljs-string">&quot;.html&quot;</span>: <span class="hljs-string">&quot;ejs&quot;</span><span class="hljs-comment">//将html启用ejs模版</span><br>  &#125;,<br>  <span class="hljs-attr">root</span>:path.<span class="hljs-title function_">join</span>(appInfo.<span class="hljs-property">baseDir</span>,<span class="hljs-string">&quot;app/html&quot;</span>)<span class="hljs-comment">//修改模版文件的存放路径（默认为app/view）</span><br>  <span class="hljs-comment">//也可以配置多个文件夹（如下）</span><br>  <span class="hljs-attr">root</span>:[<br>    path.<span class="hljs-title function_">join</span>(appInfo.<span class="hljs-property">baseDir</span>,<span class="hljs-string">&#x27;app/view&#x27;</span>),<br>    path.<span class="hljs-title function_">join</span>(appInfo.<span class="hljs-property">baseDir</span>,<span class="hljs-string">&#x27;app/其他文件夹&#x27;</span>),<br>  ].<span class="hljs-title function_">join</span>(<span class="hljs-string">&quot;,&quot;</span>)<br>&#125;<br>config.<span class="hljs-property">ejs</span> = &#123;<br>  <span class="hljs-attr">delimiter</span>: <span class="hljs-string">&quot;$&quot;</span> <span class="hljs-comment">//配置全局的ejs特殊字符（默认为%）</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>模版引擎与静态资源</p>
+<p>​    静态资源默认存放在app/public文件夹下，可以在config, default.js中配置。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//config/config.default.js</span><br>config.<span class="hljs-property">static</span>=&#123;<br>	<span class="hljs-attr">prefix</span>:<span class="hljs-string">&quot;public&quot;</span>,  <span class="hljs-comment">//prefix可配置静态资源存放的路径（url的路径）</span><br>	<span class="hljs-attr">dir</span>:path.<span class="hljs-title function_">join</span>(appInfo.<span class="hljs-property">baseDir</span>,<span class="hljs-string">&quot;app/public&quot;</span>) <span class="hljs-comment">//dir可配置文件在项目中存放的路径</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>![image-20220509222001492](/Users/haopeixian/Library/Application Support/typora-user-images/image-20220509222001492.png)</p>
+<p>![image-20220509222159923](/Users/haopeixian/Library/Application Support/typora-user-images/image-20220509222159923.png)</p>
+<h3 id="5-cookies的使用"><a href="#5-cookies的使用" class="headerlink" title="5.cookies的使用"></a>5.cookies的使用</h3><p>​    1.egg中使用ctx来操作cookeis</p>
+<p>​        设置：ctx.cookies.set(“name”,”value”,”option”)</p>
+<p>​            value不能直接设置中文，如需设置中文则需要加密（可在option中配置，也可将中文转base64），加密存储的cookie读取时需要解密；</p>
+<p>​        清空某个cookies只需要将value设为null eg:cx.cookies.set(“name”,null)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//设置cookies</span><br>ctx.<span class="hljs-property">cookies</span>.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(data), &#123;<br>            <span class="hljs-attr">httpOnly</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">//只允许后端操作（默认为true）</span><br>            <span class="hljs-attr">maxAge</span>:<span class="hljs-number">1000</span>*<span class="hljs-number">60</span>  <span class="hljs-comment">//过期时间</span><br> &#125;);<br> <br> <span class="hljs-comment">//存储value为中文的cookies</span><br> <span class="hljs-comment">//1.设置option参数为加密</span><br>         ctx.<span class="hljs-property">cookies</span>.<span class="hljs-title function_">set</span>(<span class="hljs-string">&#x27;zh&#x27;</span>,<span class="hljs-string">&#x27;中文&#x27;</span>,&#123;<br>            <span class="hljs-attr">encrypt</span>:<span class="hljs-literal">true</span><br>        &#125;)<br>        <br> <span class="hljs-comment">//2.转base64</span><br> <span class="hljs-comment">//写个base64转换的函数</span><br>     <span class="hljs-title function_">encode</span>(<span class="hljs-params">str</span>)&#123;<br>        <span class="hljs-comment">//base64加密</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Buffer</span>(str).<span class="hljs-title function_">toString</span>(<span class="hljs-string">&quot;base64&quot;</span>)<br>    &#125;<br>    <span class="hljs-title function_">decode</span>(<span class="hljs-params">str</span>)&#123;<br>        <span class="hljs-comment">//base64解密</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Buffer</span>(str,<span class="hljs-string">&quot;base64&quot;</span>).<span class="hljs-title function_">toString</span>();<br>    &#125;<br>  ctx.<span class="hljs-property">cookies</span>.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;name&quot;</span>,<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">encode</span>(<span class="hljs-string">&quot;中文&quot;</span>))<br></code></pre></td></tr></table></figure>
+
+<p>​    读取：</p>
+<p>​        ctx.cookies.get(“name”)   如果option参数配置了加密则  ctx.cookies.get(“name”,{encrypt:true})</p>
+<h3 id="6-session"><a href="#6-session" class="headerlink" title="6.session"></a>6.session</h3><p>![image-20220510222454731](/Users/haopeixian/Library/Application Support/typora-user-images/image-20220510222454731.png)</p>
+<p>session可以直接设置中文</p>
+<p>设置值：ctx.session.名称=值</p>
+<p>获取值：ctx.session.名称</p>
+<p>清除值：ctx.session.名称=null</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//session配置</span><br><span class="hljs-comment">//config.default.js</span><br>config.<span class="hljs-property">session</span>=&#123;<br>	<span class="hljs-attr">key</span>:<span class="hljs-string">&quot;sesson的名称&quot;</span>,<br>	<span class="hljs-attr">httpOnly</span>:<span class="hljs-literal">true</span>,<span class="hljs-comment">//是否只允许服务端操作</span><br>	maxAge：<span class="hljs-number">1000</span>,<span class="hljs-comment">//过期时间</span><br>	<span class="hljs-attr">renew</span>:<span class="hljs-literal">true</span>,<span class="hljs-comment">//自动刷新session  访问页面时就会自动刷新</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>封装session文件存储session这样可以节省浏览器中session所占空间</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//app.js</span><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>=<span class="hljs-function"><span class="hljs-params">app</span>=&gt;</span>&#123;<br>	<span class="hljs-keyword">const</span> store=&#123;&#125;;<br>	app.<span class="hljs-property">session</span>=&#123;<br>		<span class="hljs-keyword">async</span> <span class="hljs-title function_">get</span>(<span class="hljs-params">key</span>)&#123;<br>			<span class="hljs-keyword">return</span> store[key]<br>		&#125;,<br>		<span class="hljs-keyword">async</span> <span class="hljs-title function_">set</span>(<span class="hljs-params">key,value,maxAge</span>)&#123;<br>			store[key]=value;<br>		&#125;,<br>		<span class="hljs-keyword">async</span> <span class="hljs-title function_">destory</span>(<span class="hljs-params">key</span>)&#123;<br>			tore[key]=<span class="hljs-literal">null</span>;<br>		&#125;,<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h2><h3 id="1-中间件（middleware）"><a href="#1-中间件（middleware）" class="headerlink" title="1.中间件（middleware）"></a>1.中间件（middleware）</h3><p>放置目录：app/middleware；</p>
+<p>配置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//config/cofingdefault.js</span><br><span class="hljs-comment">//挂载全局中间件。    </span><br>config.<span class="hljs-property">middleware</span> = [<span class="hljs-string">&quot;m1&quot;</span>];<span class="hljs-comment">//挂载中间件文件名m1</span><br><span class="hljs-comment">//可以对中间件个性化定制</span><br>config.<span class="hljs-property">m1</span>=&#123;<br>	<span class="hljs-attr">type</span>:<span class="hljs-string">&quot;传递参数&quot;</span>  <span class="hljs-comment">//该参数将传递于m1中间件</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>中间件模版</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>=<span class="hljs-function">(<span class="hljs-params">options</span>)=&gt;</span>&#123;<br>			<span class="hljs-comment">//options接受config配置的个性化参数</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">async</span> (ctx,next)=&gt;&#123;<br>    	<span class="hljs-comment">//ctx上下文、next函数。只有执行next函数才会继续向下执行代码</span><br>        <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>();<br>    &#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>小试牛刀（通过中间件实现http请求日志）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> moment =<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;moment&quot;</span>);<br><span class="hljs-keyword">const</span> fs=<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;fs&quot;</span>);<br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>=<span class="hljs-function">(<span class="hljs-params">options</span>)=&gt;</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">async</span> (ctx,next)=&gt;&#123;<br>        <span class="hljs-comment">//请求进入时间</span><br>        <span class="hljs-keyword">const</span> sTime=<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>        <span class="hljs-keyword">const</span> joinhttpTime=<span class="hljs-title function_">moment</span>().<span class="hljs-title function_">format</span>(<span class="hljs-string">&quot;YYYY-MM-DD HH:mm:ss&quot;</span>);<br>        <span class="hljs-comment">//请求信息</span><br>        <span class="hljs-keyword">const</span> req=ctx.<span class="hljs-property">request</span>;<br>        <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>();<br>        <span class="hljs-comment">//获取请求信息</span><br>        <span class="hljs-keyword">const</span> log=&#123;<br>            <span class="hljs-attr">method</span>:req.<span class="hljs-property">method</span>,<br>            <span class="hljs-attr">url</span>:req.<span class="hljs-property">url</span>,<br>            <span class="hljs-attr">data</span>:req.<span class="hljs-property">body</span>,<br>            joinhttpTime,<br>            <span class="hljs-attr">endTime</span>:<span class="hljs-title function_">moment</span>().<span class="hljs-title function_">format</span>(<span class="hljs-string">&quot;YYYY-MM-DD HH:mm:ss&quot;</span>),<br>            <span class="hljs-attr">timeLength</span>:<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>()-sTime<br>        &#125;;<br>        <span class="hljs-comment">//要写入的数据</span><br>        <span class="hljs-keyword">const</span> data=<span class="hljs-title function_">moment</span>().<span class="hljs-title function_">format</span>(<span class="hljs-string">&quot;YYYY-MM-DD HH:mm:ss&quot;</span>)+<span class="hljs-string">&quot;[httplog]&quot;</span>+<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(log)+<span class="hljs-string">&quot;\r\n&quot;</span><br>        <span class="hljs-comment">//通过fs模块写入文件</span><br>        fs.<span class="hljs-title function_">appendFileSync</span>(ctx.<span class="hljs-property">app</span>.<span class="hljs-property">baseDir</span>+<span class="hljs-string">&#x27;/httpLog.log&#x27;</span>,data)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-框架扩展（ctx、app、request、response、hlper）"><a href="#2-框架扩展（ctx、app、request、response、hlper）" class="headerlink" title="2.框架扩展（ctx、app、request、response、hlper）"></a>2.框架扩展（ctx、app、request、response、hlper）</h3><p>框架扩展文件统一保存路径 src/extend/…….</p>
+<ul>
+<li><p>application扩展<br>路径：src/extend/application.js<br>返回：对象<br>使用方法：controller中解构于this.app<br>牛刀小试：实现app获取package.js文件内容</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//app/extend/application.js</span><br><span class="hljs-keyword">const</span> path=<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;path&quot;</span>)<br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>=&#123;<br>    <span class="hljs-comment">//扩展读取package.json方法</span><br>    <span class="hljs-title function_">package</span>(<span class="hljs-params">key</span>)&#123;<br>        <span class="hljs-keyword">const</span> gpack=<span class="hljs-title function_">getPackage</span>();<br>        <span class="hljs-keyword">return</span> key?gpack[key]:gpack; <br>    &#125;,<br>    <span class="hljs-comment">//扩展读取package.json属性 在函数前加上get关键字即为属性</span><br>    <span class="hljs-keyword">get</span> <span class="hljs-title function_">allPackage</span>()&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-title function_">getPackage</span>();<br>    &#125;<br>&#125;<br><span class="hljs-comment">//封装函数</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">getPackage</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-comment">//获取package.js的路径</span><br>    <span class="hljs-keyword">const</span> filePath=path.<span class="hljs-title function_">join</span>(process.<span class="hljs-title function_">cwd</span>(),<span class="hljs-string">&quot;package.json&quot;</span>);<br>    <span class="hljs-keyword">const</span> packageInfo=<span class="hljs-built_in">require</span>(filePath);<br>    <span class="hljs-keyword">return</span> packageInfo;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//contorller文件</span><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">Controller</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;egg&quot;</span>).<span class="hljs-property">Controller</span>;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">packController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Controller</span> &#123;<br>    <span class="hljs-keyword">async</span> <span class="hljs-title class_">Index</span>() &#123;<br>        <span class="hljs-keyword">const</span> &#123; app, ctx &#125; = <span class="hljs-variable language_">this</span>;<br>        <span class="hljs-comment">//调用扩展的方法</span><br>        <span class="hljs-keyword">const</span> getPack=app.<span class="hljs-title function_">package</span>(<span class="hljs-string">&quot;scripts&quot;</span>);<br>        <span class="hljs-comment">//调用扩展的属性</span><br>        <span class="hljs-keyword">const</span> getKey=app.<span class="hljs-property">allPackage</span>;<br>        <span class="hljs-comment">// console.log(getPack,&quot;方法&quot;)</span><br>        <span class="hljs-comment">// console.log(getKey,&quot;属性&quot;)</span><br>        ctx.<span class="hljs-property">body</span> = <span class="hljs-string">&quot;package&quot;</span><br>    &#125;<br>&#125;<br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = packController<br></code></pre></td></tr></table></figure></li>
+<li><p>context上下文扩展</p>
+<p>路径：src/extend/context.js<br>返回：对象<br>使用方法：controller中解构于this.ctx<br>牛刀小试：拓展ctx的获取请求参数方法（扩展属性于上面的appcation一致需要在函数前面加个get）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//app/extend/context.js</span><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>=&#123;<br>    <span class="hljs-comment">//扩展获取请求参数方法</span><br>    <span class="hljs-title function_">params</span>(<span class="hljs-params">key</span>)&#123;<br>        <span class="hljs-comment">//获取当前请求方式    this同controller中的this;</span><br>        <span class="hljs-keyword">const</span> method=<span class="hljs-variable language_">this</span>.<span class="hljs-property">request</span>.<span class="hljs-property">method</span>;<br>        <span class="hljs-comment">//判断方法返回不同的参数</span><br>        <span class="hljs-keyword">if</span>(method==<span class="hljs-string">&quot;GET&quot;</span>)&#123;<br>            <span class="hljs-keyword">return</span> key?<span class="hljs-variable language_">this</span>.<span class="hljs-property">query</span>[key]:<span class="hljs-variable language_">this</span>.<span class="hljs-property">query</span>;<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-keyword">return</span> key?<span class="hljs-variable language_">this</span>.<span class="hljs-property">request</span>.<span class="hljs-property">body</span>[key]:<span class="hljs-variable language_">this</span>.<span class="hljs-property">request</span>.<span class="hljs-property">body</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//controller中使用</span><br><span class="hljs-keyword">async</span> <span class="hljs-title function_">index</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-keyword">const</span> &#123;app,ctx&#125;=<span class="hljs-variable language_">this</span>;<br>        <span class="hljs-comment">//获取拓展方法</span><br>        <span class="hljs-keyword">const</span> getFn=ctx.<span class="hljs-title function_">params</span>();<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(getFn,<span class="hljs-string">&#x27;getfn&#x27;</span>);<br>        ctx.<span class="hljs-property">body</span>=<span class="hljs-string">&quot;context&quot;</span><br>    &#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>request扩展</p>
+<p>路径：src/extend/request.js<br>返回：对象<br>使用方法：controller中解构于ctx.request<br>牛刀小试：拓展获取请求头token方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//app/extend/request.js</span><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>=&#123;<br>    <span class="hljs-keyword">get</span> <span class="hljs-title function_">token</span>()&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">header</span>.<span class="hljs-property">token</span>||<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;token&quot;</span>)<br>    &#125;<br>&#125;<br><span class="hljs-comment">//controller中使用</span><br><span class="hljs-keyword">async</span> <span class="hljs-title function_">request</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-keyword">const</span> &#123;ctx,app&#125;=<span class="hljs-variable language_">this</span>;<br>        ctx.<span class="hljs-property">body</span>=ctx.<span class="hljs-property">request</span>.<span class="hljs-property">token</span>;<br>    &#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>response扩展</p>
+<p>路径：src/extend/response.js<br>返回：对象<br>使用方法：controller中解构于ctx.response<br>牛刀小试：拓展设置响应头token方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//app/extend/response.js</span><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>=&#123;<br>    <span class="hljs-keyword">set</span> <span class="hljs-title function_">token</span>(<span class="hljs-params">token</span>)&#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;token&quot;</span>,token)<br>    &#125;<br>&#125;<br><span class="hljs-comment">//controller中使用</span><br><span class="hljs-keyword">async</span> <span class="hljs-title function_">responseR</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-keyword">const</span> &#123;ctx,app&#125;=<span class="hljs-variable language_">this</span>;<br>        ctx.<span class="hljs-property">response</span>.<span class="hljs-property">token</span>=<span class="hljs-string">&quot;abc&quot;</span><br>        ctx.<span class="hljs-property">body</span>=<span class="hljs-string">&quot;reponsasdase&quot;</span>;<br>    &#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>helper扩展</p>
+<p>路径：src/extend/helper.js<br>返回：对象<br>使用方法：controller中解构于ctx.helper<br>牛刀小试：拓展转base64编码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//app/extend/helper.js</span><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>=&#123;<br>    <span class="hljs-title function_">codeBase64</span>(<span class="hljs-params">str</span>)&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Buffer</span>(str).<span class="hljs-title function_">toString</span>(<span class="hljs-string">&quot;base64&quot;</span>)<br>    &#125;<br>&#125;<br><span class="hljs-comment">//controller中使用</span><br>ctx.<span class="hljs-property">body</span>=ctx.<span class="hljs-property">helper</span>.<span class="hljs-title function_">codeBase64</span>(<span class="hljs-string">&quot;123123&quot;</span>);<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3-插件机制"><a href="#3-插件机制" class="headerlink" title="3.插件机制"></a>3.插件机制</h3><p>插件没有router、controller</p>
+<p>路径：src/lib/plugin/要封装的插件名（egg-XXX）</p>
+<p>目录结构</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs txt">-lib<br>--plugin<br>---egg-XXX(封装的插件)<br>----app<br>-----middleware<br>-----package.json(插件描述文件)<br></code></pre></td></tr></table></figure>
+
+<p>Package.json事例</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;egg-auth&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-comment">//插件的名称，只是描述</span><br>    <span class="hljs-attr">&quot;eggPlugin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;auth&quot;</span><span class="hljs-comment">//使用时的插件名，使用时真正的名称</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>牛刀小试：封装鉴别登陆插件</p>
+<p>思路：通过中间件拦截请求判断session中是否已登陆，同时需要添加白名单接口（无需登录的接口）</p>
+<p>lib/plugin/egg-auth.   所需middleware、package.json、项目的app.js配置使用插件</p>
+<p>package.json编写</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-comment">//. lib/plugin/egg-auth/package.json</span><br><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;egg-auth&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-comment">//插件名</span><br>    <span class="hljs-attr">&quot;eggPlugin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;auth&quot;</span><span class="hljs-comment">//使用时的插件名</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>中间件编写</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//. lib/plugin/egg-auth/middleware/auth.js</span><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">export</span>=<span class="hljs-function"><span class="hljs-params">option</span>=&gt;</span>&#123;<br>  <span class="hljs-comment">//option接收项目中config.default.js文件配置的参数</span><br>	<span class="hljs-keyword">return</span> <span class="hljs-title function_">async</span>(ctx,next)=&gt;&#123;<br>    <span class="hljs-comment">//获取接口url</span><br>		<span class="hljs-keyword">const</span> url=ctx.<span class="hljs-property">request</span>.<span class="hljs-property">url</span>;<br>    <span class="hljs-comment">//获取session中的登陆参数</span><br>    <span class="hljs-keyword">const</span> url=ctx.<span class="hljs-property">session</span>.<span class="hljs-property">user</span>;<br>    <span class="hljs-comment">//为获取到登陆参数并且不包含在白名单中(验证是否存在白名单需要纯url所以要去掉参数)</span><br>    <span class="hljs-keyword">if</span>(!url&amp;&amp;!option.<span class="hljs-property">exclude</span>.<span class="hljs-title function_">includes</span>(ctx.<span class="hljs-property">request</span>.<span class="hljs-property">url</span>.<span class="hljs-title function_">split</span>(<span class="hljs-string">&quot;?&quot;</span>)[<span class="hljs-number">0</span>]))&#123;<br>      ctx.<span class="hljs-property">body</span>=&#123;<br>        <span class="hljs-attr">status</span>:<span class="hljs-number">1001</span>,<br>        <span class="hljs-attr">errMsg</span>:<span class="hljs-string">&quot;未登录&quot;</span><br>      &#125;<br>    &#125;<span class="hljs-keyword">else</span>&#123;<span class="hljs-comment">//已登陆放行</span><br>      <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>();<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>项目目录下的app.js编写</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//项目目录/app.js(手动创建)</span><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>=<span class="hljs-function"><span class="hljs-params">app</span>=&gt;</span>&#123;<br>  <span class="hljs-comment">//为app添加插件的中间件</span><br>  app.<span class="hljs-property">config</span>.<span class="hljs-property">coreMiddleware</span>.<span class="hljs-title function_">push</span>(<span class="hljs-string">&quot;auth&quot;</span>) <span class="hljs-comment">//此处的auth即为自定义插件package.json中的eggPlugin插件名</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在项目的config/plugin中启用封装的插件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//config/plugin.js</span><br><span class="hljs-comment">//与下载的依赖不同，需要path来确定插件的路径</span><br><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;path&quot;</span>);<br><span class="hljs-built_in">exports</span>.<span class="hljs-property">auth</span>=&#123;<span class="hljs-comment">//此处的auth即为自定义插件package.json中的eggPlugin插件名</span><br>	<span class="hljs-attr">enable</span>:<span class="hljs-literal">true</span>,<br>	<span class="hljs-attr">path</span>:<span class="hljs-title function_">path</span>(__dirname,<span class="hljs-string">&quot;../lib/plugin/egg-auth&quot;</span>)<br>&#125;<br><br><span class="hljs-comment">//正常下载的插件事例(路径参数为package及依赖包名称)</span><br><span class="hljs-built_in">exports</span>.<span class="hljs-property">validate</span> = &#123;<br>  <span class="hljs-attr">enable</span>: <span class="hljs-literal">true</span>,<br>  <span class="hljs-attr">package</span>: <span class="hljs-string">&#x27;egg-validate&#x27;</span>,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>配置插件检验路由的白名单(在项目的config/config.default.js)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//config/config.default.js</span><br>config.<span class="hljs-property">auth</span>=&#123;<span class="hljs-comment">//此处的auth即为自定义插件package.json中的eggPlugin插件名</span><br> 	<span class="hljs-comment">//传入一个exclude的数组（白名单数组）</span><br>    <span class="hljs-attr">exclude</span>:[<span class="hljs-string">&quot;/&quot;</span>,<span class="hljs-string">&quot;/login&quot;</span>]<span class="hljs-comment">//middleware的option参数接收</span><br>  &#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h2><h3 id="1-基础数据库操作"><a href="#1-基础数据库操作" class="headerlink" title="1.基础数据库操作"></a>1.基础数据库操作</h3><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th>sql</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">登陆数据库</td>
+<td>mysql -uroot -p;</td>
+</tr>
+<tr>
+<td align="center">查看数据库</td>
+<td>show databases;</td>
+</tr>
+<tr>
+<td align="center">创建数据库</td>
+<td>create database 库名;</td>
+</tr>
+<tr>
+<td align="center">删除数据库</td>
+<td>drop database 库名;</td>
+</tr>
+<tr>
+<td align="center">使用库</td>
+<td>use 库名;</td>
+</tr>
+<tr>
+<td align="center">查看表</td>
+<td>show tables;</td>
+</tr>
+<tr>
+<td align="center">查看表结构</td>
+<td>desc 表名称;</td>
+</tr>
+<tr>
+<td align="center">删除表</td>
+<td>drop table 表名;</td>
+</tr>
+</tbody></table>
+<p>2.创建表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-operator">/</span><span class="hljs-operator">/</span>使用某个数据库<br>use 库名<br><span class="hljs-operator">/</span><span class="hljs-operator">/</span>创建表<br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> 表名称(<br>	<span class="hljs-operator">/</span><span class="hljs-operator">/</span>字段名 长度 不为<span class="hljs-keyword">null</span> 自增<br>	id <span class="hljs-type">int</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> auto_increment,<br>	<span class="hljs-operator">/</span><span class="hljs-operator">/</span>字段名 长度 不为<span class="hljs-keyword">null</span> 默认值 注释<br>	name <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">default</span> <span class="hljs-string">&#x27;admin&#x27;</span> comment <span class="hljs-string">&#x27;用户名&#x27;</span>,<br>	<span class="hljs-operator">/</span><span class="hljs-operator">/</span>字段名 长度 不为<span class="hljs-keyword">null</span> 注释<br>	pwd <span class="hljs-type">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;密码&#x27;</span>,<br>	<span class="hljs-operator">/</span><span class="hljs-operator">/</span>主键为id<br>	<span class="hljs-keyword">primary</span> key(id)<br><span class="hljs-operator">/</span><span class="hljs-operator">/</span>InnoDb引擎 utf8编码<br>)engine<span class="hljs-operator">=</span>InnoDB charset<span class="hljs-operator">=</span>utfb;<br><br><span class="hljs-operator">/</span><span class="hljs-operator">/</span>案例<br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">user</span>(<br>	id <span class="hljs-type">int</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> auto_increment,<br>	name <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">default</span> <span class="hljs-string">&#x27;admin&#x27;</span> comment <span class="hljs-string">&#x27;用户名&#x27;</span>,<br>	pwd <span class="hljs-type">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;密码&#x27;</span>,<br>	<span class="hljs-keyword">primary</span> key(id)<br>)engine<span class="hljs-operator">=</span>InnoDB charset<span class="hljs-operator">=</span>utf8;<br><br><span class="hljs-operator">/</span><span class="hljs-operator">/</span>插入表数据(在<span class="hljs-keyword">user</span>表中添加值)<br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">values</span>(<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;user1&#x27;</span>,<span class="hljs-string">&#x27;123&#x27;</span>);<br><span class="hljs-operator">/</span><span class="hljs-operator">/</span><span class="hljs-keyword">or</span><br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">user</span>(name,pwd) <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;user2&#x27;</span>,<span class="hljs-string">&#x27;123&#x27;</span>);<br><br><span class="hljs-operator">/</span><span class="hljs-operator">/</span>查询表数据<br><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span>;<span class="hljs-operator">/</span><span class="hljs-operator">/</span>查询<span class="hljs-keyword">user</span>中所有值<br><span class="hljs-keyword">select</span> id, name <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span>;<span class="hljs-operator">/</span><span class="hljs-operator">/</span>查询<span class="hljs-keyword">user</span>中所有值展示id和name<br><span class="hljs-keyword">select</span> id,name <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> id<span class="hljs-operator">=</span><span class="hljs-number">1</span>;<span class="hljs-operator">/</span><span class="hljs-operator">/</span>查询<span class="hljs-keyword">user</span>表中id为<span class="hljs-number">1</span>的数据并展示id和name<br><br><span class="hljs-operator">/</span><span class="hljs-operator">/</span>修改表数据<br><span class="hljs-keyword">update</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">set</span> pwd<span class="hljs-operator">=</span><span class="hljs-string">&#x27;aaaa&#x27;</span> <span class="hljs-keyword">where</span> id<span class="hljs-operator">=</span><span class="hljs-number">1</span>;<span class="hljs-operator">/</span><span class="hljs-operator">/</span>在<span class="hljs-keyword">user</span>表中将id为<span class="hljs-number">1</span>的数据的pwd字段设为aaaa<br><br><span class="hljs-operator">/</span><span class="hljs-operator">/</span>删除表数据<br><span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> id<span class="hljs-operator">=</span><span class="hljs-number">1</span>; <span class="hljs-operator">/</span><span class="hljs-operator">/</span><span class="hljs-keyword">user</span>表中删除id为<span class="hljs-number">1</span>的数据<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-egg中的mysql插件"><a href="#2-egg中的mysql插件" class="headerlink" title="2.egg中的mysql插件"></a>2.egg中的mysql插件</h3><p>Egg-mysql<br>安装 npm i egg-mysql</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs txt">npm i --save egg-mysql //安装<br>// config/plugin.js（开启插件）<br>exports.mysql = &#123;<br>  enable: true,<br>  package: &#x27;egg-mysql&#x27;,<br>&#125;;<br><br>//链接数据库config.default.js<br>  config.mysql = &#123;<br>    app: true,//挂载到app<br>    agent:false,<br>    client:&#123;//数据库信息配置<br>      host:&#x27;127.0.0.1&#x27;,<br>      port:&quot;3306&quot;,<br>      user:&quot;root&quot;,<br>      password:&quot;Ph249855&quot;,<br>      database:&quot;egg&quot;<br>    &#125;<br>  &#125;<br></code></pre></td></tr></table></figure>
+
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Egg.js学习</div>
+      <div>http://example.com/2022/05/08/egg.js学习记录/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>郝培贤</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年5月8日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/05/30/socket.io%E5%AE%9E%E7%8E%B0%E5%AE%9E%E6%97%B6%E9%80%9A%E8%AE%AF/" title="socket.io实现实时通讯">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">socket.io实现实时通讯</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
