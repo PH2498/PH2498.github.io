@@ -1,0 +1,950 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="郝培贤">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="VUE 面试题 Vue3 中的响应式和 2 有何区别Vue 的响应式：通过数据劫持和发布订阅者模式，observe 对数据进行监听，数据发生变化时，通知订阅者修改视图 Vue2：object.definepropty 进行数据的监听 缺点：是无法监听动态数据的变化，后加入的属性不会被双向绑定 解决方法：通过$set 使动态添加的数据属性可以被双向绑定 Vue3:proxy 进行数据监听 优点：可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web面试题">
+<meta property="og:url" content="http://example.com/2022/05/30/web%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
+<meta property="og:site_name" content="HPX">
+<meta property="og:description" content="VUE 面试题 Vue3 中的响应式和 2 有何区别Vue 的响应式：通过数据劫持和发布订阅者模式，observe 对数据进行监听，数据发生变化时，通知订阅者修改视图 Vue2：object.definepropty 进行数据的监听 缺点：是无法监听动态数据的变化，后加入的属性不会被双向绑定 解决方法：通过$set 使动态添加的数据属性可以被双向绑定 Vue3:proxy 进行数据监听 优点：可以">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200725093042256.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ1MDcwNDYw,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2022-05-30T15:10:24.209Z">
+<meta property="article:modified_time" content="2022-05-30T15:10:24.266Z">
+<meta property="article:author" content="郝培贤">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200725093042256.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ1MDcwNDYw,size_16,color_FFFFFF,t_70">
+  
+  
+  
+  <title>web面试题 - HPX</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>HOME</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                联系我
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="web面试题"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-05-30 23:10" pubdate>
+          2022年5月30日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          67 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">web面试题</h1>
+            
+            <div class="markdown-body">
+              
+              <h1 id="VUE-面试题"><a href="#VUE-面试题" class="headerlink" title="VUE 面试题"></a>VUE 面试题</h1><ol>
+<li><h2 id="Vue3-中的响应式和-2-有何区别"><a href="#Vue3-中的响应式和-2-有何区别" class="headerlink" title="Vue3 中的响应式和 2 有何区别"></a>Vue3 中的响应式和 2 有何区别</h2><p>Vue 的响应式：通过数据劫持和发布订阅者模式，observe 对数据进行监听，数据发生变化时，通知订阅者修改视图</p>
+<p>Vue2：object.definepropty 进行数据的监听</p>
+<p>缺点：是无法监听动态数据的变化，后加入的属性不会被双向绑定</p>
+<p>解决方法：通过$set 使动态添加的数据属性可以被双向绑定</p>
+<p>Vue3:proxy 进行数据监听</p>
+<p>优点：可以监听任意数据的动态变化，包括 es6 的一些数据类型。</p>
+<p>缺点：对一些比较落后的浏览器兼容性不是很好</p>
+</li>
+<li><h2 id="介绍-js-全部数据类型，基本数据类型和引用数据类型的区别-类数组转数组的方法有哪些"><a href="#介绍-js-全部数据类型，基本数据类型和引用数据类型的区别-类数组转数组的方法有哪些" class="headerlink" title="介绍 js 全部数据类型，基本数据类型和引用数据类型的区别 类数组转数组的方法有哪些"></a><strong>介绍 js 全部数据类型，基本数据类型和引用数据类型的区别</strong> 类数组转数组的方法有哪些</h2><p>Number、String、Boolean、Null、undefined、object、symbol、bigInt。8 种</p>
+<p>基本类型和引用类型的区别：</p>
+<p>​ 1。内存分配：基本类型储存在栈，引用类型储存在堆</p>
+<p>​ 2.访问机制：基本类型直接取值，引用类型返回一个地址通过地址取值</p>
+<p>​ 3.复制变量：基本类型复制一个独立的值，引用类型复制出来的值与被复制的值共享一块内存地址（浅拷贝）</p>
+<p>​ 4.参数传递：</p>
+<p>​ 原始值：只是把变量里的值传递给参数，之后参数和这个变量互不影响。</p>
+<p>​ 引用值：对象变量它里面的值是这个对象在堆内存中的内存地址，因此它传递的值也就是这个内存地址，这也就是为什么函数内部对这个参数的修改会体现在外部的原因了，因为它们都指向同一个对象。</p>
+<h2 id="3-从输入-URL-到地址栏到所有内容显示到浏览器做了哪些事？"><a href="#3-从输入-URL-到地址栏到所有内容显示到浏览器做了哪些事？" class="headerlink" title="3.从输入 URL 到地址栏到所有内容显示到浏览器做了哪些事？"></a>3.从输入 URL 到地址栏到所有内容显示到浏览器做了哪些事？</h2><ol>
+<li><p>解析 url 地址</p>
+</li>
+<li><p>DNS 解析</p>
+</li>
+<li><p>TCP 链接</p>
+</li>
+<li><p>发送 http 请求</p>
+</li>
+<li><p>服务器接收请求</p>
+</li>
+<li><p>服务器响应</p>
+</li>
+<li><p>TCP 链接断开</p>
+</li>
+<li><p>浏览器解析资源</p>
+<h2 id="4-Mvvm-mvc"><a href="#4-Mvvm-mvc" class="headerlink" title="4.Mvvm mvc"></a>4.Mvvm mvc</h2></li>
+</ol>
+</li>
+</ol>
+<p>1.MVC<br>MVC 思想概括为 Controller 负责将 Model 的数据用 View 显示出来。</p>
+<p>M、V、C</p>
+<p>Model（模型）：职能单一，只负责操作数据库，执行对应的 sql 语句，进行数据的 CRUD。</p>
+<p>View（视图）：在应用程序中负责处理数据显示的部分。</p>
+<p>Controller（控制器）：负责用户交互，包括路由分发处理层和业务逻辑处理层。</p>
+<p>2.MVVM</p>
+<p>MVVM 是前端视图层的分层开发思想，主要把每个页面分成了 M、V 和 VM。其中，VM 是 MVVM 思想的核心，因为 VM 是 M 和 V 之间的调度者。同时，MVVM 提供了数据的双向绑定，这让我们的开发变得更加方便。</p>
+<h2 id="5-自定义指令，和-mixins-使用场景-每个说三个"><a href="#5-自定义指令，和-mixins-使用场景-每个说三个" class="headerlink" title="5.自定义指令，和 mixins 使用场景 每个说三个"></a>5.自定义指令，和 mixins 使用场景 每个说三个</h2><p>自定义指令在 vue 中提供了一套为数据驱动视图更为方便的操作，这些操作被称为指令系统 我们看到的 v-开头的行内属性，都是指令，Vue.directive 方法进行注册.</p>
+<p>应用场景：</p>
+<ul>
+<li>防抖</li>
+<li>图片懒加载</li>
+<li>一键 Copy 的功能</li>
+<li>输入框防抖</li>
+</ul>
+<p>mixins 当我们存在多个组件中的数据或者功能很相近时，我们就可以利用 mixins 将公共部分提取出来，通过 mixins 封装的函数，组件调用他们是不会改变函数作用域外部的。</p>
+<p><strong>方法和参数在各组件中不共享，虽然组件调用了 mixins 并将其属性合并到自身组件中来了，但是其属性只会被当前组件所识别并不会被共享，也就是其他组件无法从当前组件中获取到 mixins 中的数据和方法。</strong></p>
+<p><strong>与 vuex 的区别</strong></p>
+<p><strong>vuex：</strong>用来做状态管理的，里面定义的变量在每个组件中均可以使用和修改，在任一组件中修改此变量的值之后，其他组件中此变量的值也会随之修改。</p>
+<p><strong>Mixins：</strong>可以定义共用的变量，在每个组件中使用，引入组件中之后，各个变量是相互独立的，值的修改在组件中不会相互影响。</p>
+<p><strong>与公共组件的区别</strong></p>
+<p><strong>组件</strong>：在父组件中引入组件，相当于在父组件中给出一片独立的空间供子组件使用，然后根据 props 来传值，但本质上两者是相对独立的。</p>
+<p><strong>Mixins：</strong>则是在引入组件之后与组件中的对象和方法进行合并，相当于扩展了父组件的对象与方法，可以理解为形成了一个新的组件。</p>
+<h2 id="6。跨域，解决跨域的方法"><a href="#6。跨域，解决跨域的方法" class="headerlink" title="6。跨域，解决跨域的方法"></a>6。跨域，解决跨域的方法</h2><p>是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对 JavaScript 实施的安全限制。</p>
+<p>同源：端口相同、协议相同、域名相同；三者有一个不同就是跨域</p>
+<p><strong>方法一：JSONP 跨域</strong></p>
+<p>本质是利用了标签具有可跨域的特性；我们使用 script 标签请求地址，带上参数，参数值是我们在全局定义的一个函数；然后返回数据的时候，我们返回这个函数的调用，带上我们要传递回来的数据作为参数进行传递，这样浏览器会直接执行这个函数；这样就实现了跨域；</p>
+<p>缺点：不支持 post；只能是 get,jsonp 需要服务端的支持</p>
+<p><strong>方案二、CORS 跨域</strong></p>
+<p>JSONP 只支持 GET 请求，CORS 支持所有类型的 HTTP 请求</p>
+<p>只需服务器端设置 Access-Control-Allow-Origin</p>
+<p><strong>方案三、代理</strong></p>
+<p>vue 的 proxy</p>
+<h2 id="7-eventloop-事件循环"><a href="#7-eventloop-事件循环" class="headerlink" title="7.eventloop 事件循环"></a>7.eventloop 事件循环</h2><h2 id="8-vue-单页与多页的区别"><a href="#8-vue-单页与多页的区别" class="headerlink" title="8.vue 单页与多页的区别"></a>8.vue 单页与多页的区别</h2><p><strong>SPA 单页面应用（SinglePage Web Application）</strong>，指只有一个主页面的应用（一个 html 页面），一开始只需要加载一次 js、css 的相关资源。所有内容都包含在主页面，对每一个功能模块组件化。单页应用跳转，就是切换相关组件，仅仅刷新局部资源。</p>
+<p><strong>MPA 多页面应用（MultiPage Application）</strong>，指有多个独立页面的应用（多个 html 页面），每个页面必须重复加载 js、css 等相关资源。多页应用跳转，需要整页资源刷新。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200725093042256.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ1MDcwNDYw,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<h2 id="9-回流重绘"><a href="#9-回流重绘" class="headerlink" title="9.回流重绘"></a>9.回流重绘</h2><p><strong>1.回流的概念：</strong></p>
+<p>将可见 DOM 节点以及它对应的样式结合起来，可是我们还需要计算它们在设备视口(viewport)内的确切位置和大小，这个计算的阶段就是回流</p>
+<p><strong>2.重绘概念：</strong></p>
+<p>我们通过构造渲染树和回流阶段，我们知道了哪些节点是可见的，以及可见节点的样式和具体的几何信息(位置、大小)，那么我们就可以将渲染树的每个节点都转换为屏幕上的实际像素，这个阶段就叫做重绘节点</p>
+<p>比如以下情况：</p>
+<p>a.添加或删除可见的 DOM 元素</p>
+<p>b.元素的位置发生变化</p>
+<p>c.元素的尺寸发生变化（包括外边距、内边框、边框大小、高度和宽度等）</p>
+<p>d.内容发生变化，比如文本变化或图片被另一个不同尺寸的图片所替代</p>
+<p>e.页面一开始渲染的时候（这肯定避免不了）</p>
+<p>回流一定会触发重绘，而重绘不一定会回流</p>
+<h2 id="10-什么是-tree-shaking"><a href="#10-什么是-tree-shaking" class="headerlink" title="10 什么是 tree-shaking"></a>10 什么是 tree-shaking</h2><p>tree shaking 是一个术语,通常用于描述移除 JavaScript 上下文中的未引用代码(dead-code)。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//math.js</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">add</span> = (<span class="hljs-params">a, b</span>) =&gt; &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(a + b)<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">minus</span> = (<span class="hljs-params">a, b</span>) =&gt; &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(a - b)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后 index.js 里面导入：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// index.js</span><br><span class="hljs-keyword">import</span> &#123; add &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./math.js&#x27;</span><br><br><span class="hljs-title function_">add</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br></code></pre></td></tr></table></figure>
+
+<p>接着我们 build 打包一下，发现打包后端的文件除了 add 的代码外还包含了没有使用的 minus 相关代码。</p>
+<p>这个其实是没有必要的，会使得 js 文件变大，理想情况下就是引入什么真正用到了什么，你帮我打包什么。</p>
+<p>这也就是 webpack 提供的 tree shaking 功能 — 把一个模块里面没用的部分摇掉，只留下部分需要的。</p>
+<h2 id="11-回调函数和任务队列的区别"><a href="#11-回调函数和任务队列的区别" class="headerlink" title="11 回调函数和任务队列的区别"></a>11 回调函数和任务队列的区别</h2><h2 id="12Vue-是怎么做到数组响应式的"><a href="#12Vue-是怎么做到数组响应式的" class="headerlink" title="12Vue 是怎么做到数组响应式的?"></a>12Vue 是怎么做到数组响应式的?</h2><p>Vue 的响应式：通过数据劫持和发布订阅者模式，observe 对数据进行监听，数据发生变化时，通知订阅者修改视图</p>
+<p>Vue2：object.definepropty 进行数据的监听</p>
+<p>缺点：是无法监听动态数据的变化，后加入的属性不会被双向绑定</p>
+<p>解决方法：通过$set 使动态添加的数据属性可以被双向绑定</p>
+<p>Vue3:proxy 进行数据监听</p>
+<p>优点：可以监听任意数据的动态变化，包括 es6 的一些数据类型。</p>
+<p>缺点：对一些比较落后的浏览器兼容性不是很好</p>
+<h2 id="13-ts-的优势"><a href="#13-ts-的优势" class="headerlink" title="13.ts 的优势"></a>13.ts 的优势</h2><p><strong>TypeScrip 的第一大优势 支持 ES6</strong></p>
+<p><strong>TypeScript 的第二大优势 强大的 IDE 支持</strong>：<strong>类型检测</strong>，<strong>语法提示</strong>，<strong>重构</strong></p>
+<p><strong>TypeScript 的第三大优势 Angular2 框架的开发语言</strong></p>
+<h2 id="14Redux-和-Vuex"><a href="#14Redux-和-Vuex" class="headerlink" title="14Redux 和 Vuex"></a>14Redux 和 Vuex</h2><p>状态管理工具</p>
+<table>
+<thead>
+<tr>
+<th>Redux 的核心概念</th>
+<th>Vuex 的核心概念</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>action （同步 action ，或借助 中间件 实现异步操作，action 不会改变 store，只是描述了怎么改变 store）</td>
+<td>mutation（用于同步操作） 、action（可用于异步操作，提交 mutation）</td>
+</tr>
+<tr>
+<td>reducer（纯函数，根据 action 和旧的 store 计算出新的 store</td>
+<td>mutation 里面直接修改 state</td>
+</tr>
+<tr>
+<td>store（单一数据源）</td>
+<td>state（单一数据源）</td>
+</tr>
+</tbody></table>
+<h2 id="15Vue-项目优化"><a href="#15Vue-项目优化" class="headerlink" title="15Vue 项目优化"></a>15Vue 项目优化</h2><p>mixins，computed，watch，ssr，tree-shaking，自定义指令</p>
+<h2 id="16-什么是-ssr（服务端渲染）"><a href="#16-什么是-ssr（服务端渲染）" class="headerlink" title="16 什么是 ssr（服务端渲染）"></a>16 什么是 ssr（服务端渲染）</h2><p><code>SSR</code>大致的意思就是<code>vue</code>在客户端将标签渲染成的整个 html 片段的工作在服务端完成，服务端形成的<code>html</code> 片段直接返回给客户端这个过程就叫做服务端渲染。 服务端渲染 <code>SSR</code></p>
+<p>更多的开发条件限制： 例如服务端渲染只支持<code>beforCreate</code>和 <code>created</code> 两个钩子函数，</p>
+<p>更多的服务器负载</p>
+<p>更好的 seo</p>
+<h2 id="17-什么是-SEO"><a href="#17-什么是-SEO" class="headerlink" title="17 什么是 SEO"></a>17 什么是 SEO</h2><p>SEO(Search Engine Optimization)，即搜索引擎优化。SEO 是随着搜索引擎的出现而来的，两者是相互促进，互利共生的关系。SEO 的存在就是为了提升网页在搜索引擎自然搜索结果中的收录数量以及排序位置而做的优化行为。而优化的目的就是为了提升网站在搜索引擎中的权重，增加对搜索引擎的友好度，使得用户在访问网站时能排在前面。</p>
+<h2 id="18-数组扁平化"><a href="#18-数组扁平化" class="headerlink" title="18.数组扁平化"></a>18.数组扁平化</h2><p>多维数组转一维数组</p>
+<p>1.flat</p>
+<p>2.ruduce</p>
+<p>3.递归</p>
+<h2 id="19-深入理解-computed-、watch-、-methods"><a href="#19-深入理解-computed-、watch-、-methods" class="headerlink" title="19 深入理解 computed 、watch 、 methods"></a>19 深入理解 computed 、watch 、 methods</h2><h3 id="computed"><a href="#computed" class="headerlink" title="computed"></a>computed</h3><ul>
+<li>当依赖某些状态(data 中的数据)发生变化时，优先选择使用 computed</li>
+</ul>
+<p>举个例子，总价 = 数量 * 价格，当数量和价格发生变化时都会影响总价，这时计算属性就派上用场了。</p>
+<h3 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h3><ul>
+<li>用来解决 beforeUpdate, updated 两个钩子里修改状态导致死循环的问题，采用 watch</li>
+<li>监测可能异步改变值得时候</li>
+</ul>
+<h3 id="methods"><a href="#methods" class="headerlink" title="methods"></a>methods</h3><ul>
+<li>定义事件响应函数</li>
+<li>定义组件公共处理函数</li>
+</ul>
+<h3 id="computed-和-methods-区别"><a href="#computed-和-methods-区别" class="headerlink" title="computed 和 methods 区别"></a>computed 和 methods 区别</h3><ol>
+<li>相同点</li>
+</ol>
+<ul>
+<li>如果作为模板的数据显示，二者都能实现相应的功能，唯一不同的是 methods 定义的方法需要执行</li>
+</ul>
+<ol>
+<li>不同点</li>
+</ol>
+<ul>
+<li>computed 会基于响应数据缓存，methods 不会缓存</li>
+<li>diff 之前先看 data 里的数据是否发生变化，如果没有变化 computed 的方法不会执行，但 methods 里的方法会执行</li>
+</ul>
+<p><strong>computed</strong></p>
+<p>​ 通过判断源码的 lazy 来判断是否使用缓存</p>
+<p>组件 watcher 计算 watcher 侦听 watcher</p>
+<h2 id="20Object-freeze-是怎么对-Vue-项目实现优化的？"><a href="#20Object-freeze-是怎么对-Vue-项目实现优化的？" class="headerlink" title="20Object.freeze 是怎么对 Vue 项目实现优化的？"></a>20Object.freeze 是怎么对 Vue 项目实现优化的？</h2><p><strong>Object.freeze() 方法用于冻结对象，</strong></p>
+<p>const 的行为像 let。它们唯一的区别是， const 定义了一个无法重新分配的变量。 通过 const 声明的变量是具有块级作用域的，而不是像 var 声明的变量具有函数作用域。</p>
+<p>Object.freeze()接 v eze()并不同，const 是防止变量重新分配，而 Object.freeze()是使对象具有不可变性。</p>
+<p>由于 <code>Object.freeze()</code>会把对象冻结，所以比较适合展示类的场景，如果你的数据属性需要改变，可以重新替换成一个新的 <code>Object.freeze()</code>的对象。</p>
+<h2 id="21-gzip-压缩，如何开启？"><a href="#21-gzip-压缩，如何开启？" class="headerlink" title="21.gzip 压缩，如何开启？"></a>21.gzip 压缩，如何开启？</h2><p>将资源进行压缩，从而降低请求资源的文件大小</p>
+<p>compression-webpack-plugin 是一个非常好用的压缩插件,修改 config 下的 index.js,将 productionGzip 改为 true</p>
+<h2 id="22cookie-和-webStorage-的区别"><a href="#22cookie-和-webStorage-的区别" class="headerlink" title="22cookie 和 webStorage 的区别"></a>22cookie 和 webStorage 的区别</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>sessionStorage</th>
+<th>localStorage</th>
+<th>cookie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>生命周期</td>
+<td>浏览器关闭</td>
+<td>永久存在，除非自己删除或清除缓存</td>
+<td>可以自己设置，默认到浏览器关闭</td>
+</tr>
+<tr>
+<td>大小限制</td>
+<td>5MB</td>
+<td>5MB</td>
+<td>4K</td>
+</tr>
+<tr>
+<td>与服务器通信</td>
+<td>仅在客户端</td>
+<td>仅在客户端</td>
+<td>每次请求都会携带</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>相对于 cookie 来说高一些，不用担心截获，但是仍然存在伪造问题</td>
+<td>相对于 cookie 来说高一些，不用担心截获，但是仍然存在伪造问题</td>
+<td>安全性较低（Cookie 欺骗，Cookie 截获）</td>
+</tr>
+<tr>
+<td>应用场景</td>
+<td>敏感账号一次性登录</td>
+<td>常用于长期登录（+判断用户是否已登录）</td>
+<td>判断用户是否登陆过网站</td>
+</tr>
+</tbody></table>
+<h2 id="23vue-路由的钩子函数"><a href="#23vue-路由的钩子函数" class="headerlink" title="23vue 路由的钩子函数"></a>23vue 路由的钩子函数</h2><p><strong>vue-router 全局有三个守卫：</strong>,</p>
+<ol>
+<li>router.beforeEach 全局前置守卫 进入路由之前</li>
+<li>router.beforeResolve 全局解析守卫(2.5.0+) 在 beforeRouteEnter 调用之后调用</li>
+<li>router.afterEach 全局后置钩子 进入路由之后</li>
+</ol>
+<p><strong>路由组件内的守卫：</strong></p>
+<ol>
+<li>beforeRouteEnter 进入路由前</li>
+<li>beforeRouteUpdate (2.2) 路由复用同一个组件时</li>
+<li>beforeRouteLeave 离开当前路由时</li>
+</ol>
+<p><strong>to,from,next 这三个参数：</strong></p>
+<p>to:到哪去</p>
+<p>from：从哪来</p>
+<p>next：进入该路由</p>
+<h2 id="24vue-路由的两种模式及区别"><a href="#24vue-路由的两种模式及区别" class="headerlink" title="24vue 路由的两种模式及区别"></a>24vue 路由的两种模式及区别</h2><h3 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h3><p>hash，原本用来结合锚点控制页面视窗的位置，具有以下特点：</p>
+<ul>
+<li>可以改变 URL，但不会触发页面重新加载（hash 的改变会记录在 window.hisotry 中）因此并不算是一次 http 请求，所以这种模式不利于 SEO 优化</li>
+<li>只能修改#后面的部分，因此只能跳转与当前 URL 同文档的 URL</li>
+<li>只能通过字符串改变 URL</li>
+<li>通过 window.onhashchange 监听 hash 的改变，借此实现无刷新跳转的功能。</li>
+</ul>
+<h3 id="history"><a href="#history" class="headerlink" title="history"></a>history</h3><p>根据 Mozilla Develop Network 的介绍，调用 history.pushState() 相比于直接修改 hash，存在以下优势</p>
+<ul>
+<li>新的 URL 可以是与当前 URL 同源的任意 URL，也可以与当前 URL 一样，但是这样会把重复的一次操作记录到栈中</li>
+<li>通过参数 stateObject 可以添加任意类型的数据到记录中</li>
+<li>可额外设置 title 属性供后续使用</li>
+<li>通过 pushState、replaceState 实现无刷新跳转的功能。</li>
+</ul>
+<p>**1.**hash 路由在地址栏 URL 上有#，而 history 路由没有会好看一点</p>
+<p>**2.**我们进行回车刷新操作，hash 路由会加载到地址栏对应的页面，而 history 路由一般就 404 报错了（刷新是网络请求，没有后端准备时会报错）。</p>
+<p>**3.**hash 路由支持低版本的浏览器，而 history 路由是 HTML5 新增的 API。</p>
+<p>**4.**hash 的特点在于它虽然出现在了 URL 中，但是不包括在 http 请求中，所以对于后端是没有一点影响的，所以改变 hash 不会重新加载页面，所以这也是单页面应用的必备。</p>
+<p>**5.**history 运用了浏览器的历史记录栈，之前有 back,forward,go 方法，之后在 HTML5 中新增了 pushState（）和 replaceState（）方法（需要特定浏览器的支持），它们提供了对历史记录进行修改的功能，不过在进行修改时，虽然改变了当前的 URL，但是浏览器不会马上向后端发送请求。</p>
+<h2 id="25nexttick-是做什么的"><a href="#25nexttick-是做什么的" class="headerlink" title="25nexttick 是做什么的"></a>25nexttick 是做什么的</h2><p>在 creted 生命周期 dom 未渲染，要想拿到 dom 需要使用$nexttick</p>
+<h2 id="26vue-的内置组件都有哪些"><a href="#26vue-的内置组件都有哪些" class="headerlink" title="26vue 的内置组件都有哪些"></a>26vue 的内置组件都有哪些</h2><p><strong>1.<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#component">component</a>：用于动态组件</strong></p>
+<p><strong>2.<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#transition">transition</a>：过渡和动画</strong></p>
+<p><strong>3.<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#transition-group">transition-group</a>：</strong></p>
+<p><strong>4.<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#keep-alive">keep-alive</a>：</strong>缓存</p>
+<p><strong>5.<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#slot">slot：插槽</a></strong></p>
+<h2 id="27-vue-过滤器"><a href="#27-vue-过滤器" class="headerlink" title="27.vue 过滤器"></a>27.vue 过滤器</h2><p>Vue.js 允许你自定义过滤器，可被用于一些常见的文本格式化。有全局和局部两种，通过管道符|来将数据进行编译，可以转化为新的数据，比如时间戳转时间/单位。</p>
+<h2 id="28-虚拟-dom-的优缺点"><a href="#28-虚拟-dom-的优缺点" class="headerlink" title="28.虚拟 dom 的优缺点"></a>28.虚拟 dom 的优缺点</h2><p>用 js 模拟一颗 dom 树，放在浏览器内存中，变更时根据 deff 算法，深度优先，逐层比较</p>
+<p>优点</p>
+<p>保证性能下限：在保证无需手动操作 dom 的情况下将也会有很好的性能</p>
+<p>无需手动操作 dom</p>
+<p>跨平台： 虚拟 DOM 本质上是 JavaScript 对象,而 DOM 与平台强相关，相比之下虚拟 DOM 可以进行更方便地跨平台操作，例如服务器渲染、weex 开发等等</p>
+<p>缺点:</p>
+<ul>
+<li>无法进行极致优化： 虽然虚拟 DOM + 合理的优化，足以应对绝大部分应用的性能需求，但在一些性能要求极高的应用中虚拟 DOM 无法进行针对性的极致优化。<br>首次渲染大量 DOM 时，由于多了一层虚拟 DOM 的计算，会比 innerHTML 插入慢。</li>
+</ul>
+<h2 id="29-异步组件"><a href="#29-异步组件" class="headerlink" title="29.异步组件"></a>29.异步组件</h2><p>在大型应用中，我们可能需要将应用分割成小一些的代码块，并且只在需要的时候才从服务器加载一个模块。为了简化，Vue 允许你以一个工厂函数的方式定义你的组件，这个工厂函数会异步解析你的组件定义。Vue 只有在这个组件需要被渲染的时候才会触发该工厂函数，且会把结果缓存起来供未来重渲染。</p>
+<h2 id="30-nextTick-的底层原理"><a href="#30-nextTick-的底层原理" class="headerlink" title="30.$nextTick 的底层原理"></a>30.$nextTick 的底层原理</h2><p>数据发生更新时拿到最新数据，只有第一次执行时是异步，源码有一个判断。会把所有的回调加到 callbacks 数组中，四个异步 <strong>promise</strong> <strong>mutationobserver</strong> <strong>setimmdiate</strong> <strong>settimeout</strong></p>
+<p>最后通过 flushcallbacks 循环遍历</p>
+<h2 id="31-vue-watch-如何实现深度监听"><a href="#31-vue-watch-如何实现深度监听" class="headerlink" title="31.vue watch 如何实现深度监听"></a>31.vue watch 如何实现深度监听</h2><h2 id="32-HTTPS-是什么"><a href="#32-HTTPS-是什么" class="headerlink" title="32.HTTPS 是什么"></a>32.HTTPS 是什么</h2><p>https 是在 http 和 Tcp 之间建立了一个安全层，HTTP 与 TCP 通信的时候，必须先进过一个安全层，对数据包进行加密，然后将加密后的数据包传送给 TCP，相应的 TCP 必须将数据包解密，才能传给上面的 HTTP。</p>
+<p>TCP 滑动窗口分为两种: <strong>发送窗口</strong>和<strong>接收窗口</strong>。</p>
+<h3 id="HTTP-缓存"><a href="#HTTP-缓存" class="headerlink" title="HTTP 缓存"></a>HTTP 缓存</h3><p>HTTP 缓存又分为强缓存和协商缓存：首先通过 验证强缓存是否可用，如果强缓存可用，那么直接读取缓存。如果不可以，那么进入协商缓存阶段</p>
+<h2 id="33-你知道-302-状态码是什么嘛？你平时浏览网页的过程中遇到过哪些-302-的场景？"><a href="#33-你知道-302-状态码是什么嘛？你平时浏览网页的过程中遇到过哪些-302-的场景？" class="headerlink" title="33.你知道 302 状态码是什么嘛？你平时浏览网页的过程中遇到过哪些 302 的场景？"></a>33.你知道 302 状态码是什么嘛？你平时浏览网页的过程中遇到过哪些 302 的场景？</h2><p>而 302 表示临时重定向，这个资源只是暂时不能被访问了，但是之后过一段时间还是可以继续访问，一般是访问某个网站的资源需要权限时，会需要用户去登录，跳转到登录页面之后登录之后，还可以继续访问。</p>
+<p>301 类似，都会跳转到一个新的网站，但是 301 代表访问的地址的资源被永久移除了，以后都不应该访问这个地址，搜索引擎抓取的时候也会用新的地址替换这个老的。可以在返回的响应的 location 首部去获取到返回的地址。301 的场景如下：</p>
+<ul>
+<li>比如从 <a target="_blank" rel="noopener" href="http://baidu.com/">baidu.com</a>，跳转到 <a target="_blank" rel="noopener" href="https://baidu.com/">baidu.com</a></li>
+<li>域名换了</li>
+</ul>
+<h2 id="34-WebSocket-与-Ajax-的区别"><a href="#34-WebSocket-与-Ajax-的区别" class="headerlink" title="34.WebSocket 与 Ajax 的区别"></a>34.WebSocket 与 Ajax 的区别</h2><h3 id="本质不同"><a href="#本质不同" class="headerlink" title="本质不同"></a>本质不同</h3><p>Ajax 即异步 JavaScript 和 XML，是一种创建交互式网页的应用的网页开发技术</p>
+<p>websocket 是 HTML5 的一种新协议，实现了浏览器和服务器的实时通信</p>
+<p>生命周期不同：</p>
+<ul>
+<li>websocket 是长连接，会话一直保持</li>
+<li>ajax 发送接收之后就会断开</li>
+</ul>
+<p>适用范围：</p>
+<ul>
+<li>websocket 用于前后端实时交互数据</li>
+<li>ajax 非实时</li>
+</ul>
+<p>发起人：</p>
+<ul>
+<li>AJAX 客户端发起</li>
+<li>WebSocket 服务器端和客户端相互推送</li>
+</ul>
+<p>websocket 是长轮询具体比如在一个电商场景，商品的库存可能会变化，所以需要及时反映给用户，所以客户端会不停的发请求，然后服务器端会不停的去查变化，不管变不变，都返回，这个是短轮询。</p>
+<p>而长轮询则表现为如果没有变，就不返回，而是等待变或者超时（一般是十几秒）才返回，如果没有返回，客户端也不需要一直发请求，所以减少了双方的压力。有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<h2 id="35-vue-修饰符"><a href="#35-vue-修饰符" class="headerlink" title="35.vue 修饰符"></a>35.vue 修饰符</h2><p>.stop 阻止事件继续传播<br>.prevent 阻止标签默认行为<br>.capture 使用事件捕获模式,即元素自身触发的事件先在此处处理，然后才交由内部元素进行处理<br>.self 只当在 event.target 是当前元素自身时触发处理函数<br>.once 事件将只会触发一次<br>.passive 告诉浏览器你不想阻止事件的默认行为</p>
+<h2 id="36-长列表优化"><a href="#36-长列表优化" class="headerlink" title="36.长列表优化"></a>36.长列表优化</h2><p><strong>背景</strong></p>
+<p>对于很长列表的处理，都是直接全部进行渲染，导致的一个问题就是，加载页面都要加载比较久的时间</p>
+<p>原理：固定的 dom 数量，监听滚动条，渲染不同的数据</p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>web面试题</div>
+      <div>http://example.com/2022/05/30/web面试题/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>郝培贤</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年5月30日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/05/30/%E4%BA%94%E5%88%86%E9%92%9F%E4%B8%8A%E6%89%8BEgg.js/" title="五分钟上手Egg.js">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">五分钟上手Egg.js</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/05/30/%E5%9C%A8umi%E4%B8%AD%E4%BD%BF%E7%94%A8dva/" title="在umi中使用dva">
+                        <span class="hidden-mobile">在umi中使用dva</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
