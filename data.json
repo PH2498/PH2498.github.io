@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Alpha",
+    "score": 95.5,
+    "active": true
+  },
+  {
+    "id": 2,
+    "name": "Beta",
+    "score": 88.3,
+    "active": false
+  },
+  {
+    "id": 3,
+    "name": "Gamma",
+    "score": 76.0,
+    "active": true
+  }
+]
