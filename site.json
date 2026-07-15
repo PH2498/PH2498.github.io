@@ -1,0 +1,28 @@
+{
+  "name": "静态网站",
+  "version": "1.0.0",
+  "description": "个人博客静态网站",
+  "author": "",
+  "language": "zh-CN",
+  "url": "",
+  "pages": {
+    "home": "index.html",
+    "about": "about/index.html",
+    "archives": "archives/index.html",
+    "categories": "categories/index.html",
+    "tags": "tags/index.html",
+    "links": "links/index.html"
+  },
+  "features": {
+    "localSearch": true,
+    "lazyload": true,
+    "colorSchema": true
+  },
+  "directories": {
+    "posts": "2022,2024,2025",
+    "assets": ["css", "js", "img"],
+    "data": "xml"
+  },
+  "createdAt": "2026-07-15T06:57:01Z",
+  "updatedAt": "2026-07-15T06:57:01Z"
+}
