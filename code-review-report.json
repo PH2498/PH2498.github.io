@@ -1,0 +1,274 @@
+{
+  "meta": {
+    "project": "Hexo Fluid 静态博客",
+    "review_date": "2026-07-15",
+    "reviewer": "AI Code Reviewer",
+    "skill": "code-review-skill",
+    "phase": "review",
+    "total_files_reviewed": 8,
+    "review_decision": "💬 Comment"
+  },
+  "summary": {
+    "strengths": [
+      "模块化拆分合理，每个 JS 文件职责单一（boot、events、utils、plugins 等）",
+      "IIFE 模式正确使用，避免全局命名空间污染",
+      "color-schema.js 的暗色模式实现考虑周全，包含 localStorage 持久化和系统偏好检测",
+      "local-search.js 提供了完整的客户端搜索能力，用户体验好",
+      "img-lazyload.js 实现简洁高效，利用已有工具函数"
+    ],
+    "critical_issues": 0,
+    "important_issues": 3,
+    "nit_issues": 4,
+    "suggestion_count": 3
+  },
+  "files": [
+    {
+      "path": "js/boot.js",
+      "lines": 16,
+      "rating": "good",
+      "issues": [
+        {
+          "severity": "🟢 nit",
+          "line": 3,
+          "code": "Fluid.boot = {};",
+          "message": "可以考虑使用 Object.create(null) 代替 {} 以避免原型链污染风险，虽然当前场景下风险极低。"
+        },
+        {
+          "severity": "💡 suggestion",
+          "line": 14,
+          "code": "document.addEventListener('DOMContentLoaded', function() { ... });",
+          "message": "建议添加 try-catch 包裹 registerEvents 调用，防止单个事件注册失败导致后续事件全部中断。"
+        }
+      ],
+      "praise": [
+        "代码结构清晰，单一的引导职责，易于理解和维护"
+      ]
+    },
+    {
+      "path": "js/events.js",
+      "lines": 167,
+      "rating": "acceptable",
+      "issues": [
+        {
+          "severity": "🟡 important",
+          "line": 3,
+          "code": "HTMLElement.prototype.wrap = function(wrapper) { ... }",
+          "message": "修改原生 HTMLElement.prototype 是高风险操作，可能与浏览器未来版本或其他库冲突。建议改为独立工具函数。此外，plugins.js 第3行存在完全相同的重复定义。"
+        },
+        {
+          "severity": "🟡 important",
+          "line": "多处",
+          "code": "var navbar = ...; var navbarVisible = ...",
+          "message": "registerNavbarEvent 函数中大量使用 var 声明变量，存在变量提升带来的潜在问题。建议统一使用 let/const。"
+        },
+        {
+          "severity": "🟢 nit",
+          "line": 167,
+          "code": "console ASCII art 输出",
+          "message": "生产环境不应保留 console 输出（即使是品牌展示），建议通过构建工具在 production build 中移除。"
+        }
+      ],
+      "praise": [
+        "事件处理逻辑完整，覆盖了导航栏、视差滚动、回到顶部等常见交互"
+      ]
+    },
+    {
+      "path": "js/plugins.js",
+      "lines": 99,
+      "rating": "acceptable",
+      "issues": [
+        {
+          "severity": "🟡 important",
+          "line": 3,
+          "code": "HTMLElement.prototype.wrap = function(wrapper) { ... }",
+          "message": "与 events.js 第3行完全重复的 HTMLElement.prototype.wrap 定义。如果两个文件都被加载，后加载的会覆盖前者；如果加载顺序不确定，可能导致行为不一致。建议提取到 utils.js 作为公共工具函数。"
+        },
+        {
+          "severity": "🟢 nit",
+          "line": 28,
+          "code": "jQuery(document).ready(function() { typed.start(); });",
+          "message": "在 IIFE 内部使用 jQuery.ready 是冗余的——如果脚本放在 body 底部或使用 defer，此时 DOM 已就绪。此外，依赖 jQuery 但未在文件头部声明 /* global jQuery */。"
+        }
+      ],
+      "praise": [
+        "Typed.js 集成实现简洁，打字机效果配置灵活"
+      ]
+    },
+    {
+      "path": "js/utils.js",
+      "lines": 219,
+      "rating": "good",
+      "issues": [
+        {
+          "severity": "🟢 nit",
+          "line": "多处",
+          "code": "var dbc = new Debouncer(callback);",
+          "message": "全文件使用 var 声明，建议统一迁移到 let/const。Debouncer 类定义在闭包内无法被外部复用，如果需要可考虑提升到模块级别。"
+        },
+        {
+          "severity": "💡 suggestion",
+          "line": 3,
+          "code": "window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;",
+          "message": "requestAnimationFrame polyfill 缺少 msRequestAnimationFrame (IE10) 和标准的回退方案。现代浏览器已普遍支持，可考虑移除 polyfill 或使用更完整的版本。"
+        }
+      ],
+      "praise": [
+        "工具函数设计合理，waitElementVisible 利用 IntersectionObserver 和 rAF 实现高性能元素可见性检测",
+        "Debouncer 类实现正确，使用 rAF 进行节流是适合动画场景的优雅方案"
+      ]
+    },
+    {
+      "path": "js/color-schema.js",
+      "lines": 266,
+      "rating": "good",
+      "issues": [
+        {
+          "severity": "🟢 nit",
+          "line": "多处",
+          "code": "var rootElement = ...; var colorSchemaStorageKey = ...",
+          "message": "全文件使用 var 声明，建议统一使用 const（对于不变的配置）和 let（对于会变化的变量）。"
+        },
+        {
+          "severity": "💡 suggestion",
+          "line": "多处",
+          "code": "localStorage.setItem / getItem 调用",
+          "message": "localStorage 操作在隐私模式/存储配额满时可能抛异常，已有 try-catch 但 getLS/setLS/removeLS 函数在 catch 中静默失败。建议至少在开发模式下输出警告日志。"
+        }
+      ],
+      "praise": [
+        "暗色模式实现质量高：支持系统偏好检测(prefers-color-scheme)、localStorage 持久化、手动切换、无闪烁切换",
+        "代码注释清晰，来源标注规范"
+      ]
+    },
+    {
+      "path": "js/leancloud.js",
+      "lines": 194,
+      "rating": "acceptable",
+      "issues": [
+        {
+          "severity": "🟡 important",
+          "line": "多处",
+          "code": "APP_ID / APP_KEY 通过 CONFIG 全局变量注入",
+          "message": "LeanCloud 的 AppId 和 AppKey 直接暴露在前端 CONFIG 对象中，存在安全风险。建议：1) 使用仅读权限的 Key；2) 通过后端代理转发请求；3) 在 LeanCloud 控制台设置 Web 安全域名白名单。"
+        },
+        {
+          "severity": "🟢 nit",
+          "line": 6,
+          "code": "return new Promise(function(resolve, reject) { ... })",
+          "message": "Promise 使用 ES5 风格 function 回调，建议使用箭头函数提升可读性。"
+        }
+      ],
+      "praise": [
+        "计数器逻辑完整，包含创建/查询/更新的完整流程",
+        "使用了 Promise 进行异步流程控制，代码结构清晰"
+      ]
+    },
+    {
+      "path": "js/local-search.js",
+      "lines": 160,
+      "rating": "acceptable",
+      "issues": [
+        {
+          "severity": "🟡 important",
+          "line": 5,
+          "code": "function localSearchFunc(path, searchSelector, resultSelector) { ... }",
+          "message": "搜索数据通过 XML 文件加载，每次搜索都需要解析整个 XML。如果文章数量较多（>100篇），建议：1) 首次加载后缓存解析结果；2) 使用 JSON 格式替代 XML 以减少解析开销。此外，搜索结果使用 innerHTML 拼接，存在 XSS 风险——如果文章内容包含 HTML 实体，需要做转义处理。"
+        },
+        {
+          "severity": "🟢 nit",
+          "line": "多处",
+          "code": "var $input = ...; var $result = ...",
+          "message": "全文件使用 var 声明，且依赖 jQuery 进行 DOM 操作。建议：1) 统一使用 let/const；2) 评估是否可移除 jQuery 依赖以减小包体积。"
+        }
+      ],
+      "praise": [
+        "搜索功能完整，支持关键词高亮和结果展示",
+        "有输入验证和空结果处理"
+      ]
+    },
+    {
+      "path": "js/img-lazyload.js",
+      "lines": 10,
+      "rating": "good",
+      "issues": [
+        {
+          "severity": "🟢 nit",
+          "line": 4,
+          "code": "for (const each of document.querySelectorAll('img[lazyload]'))",
+          "message": "使用 ES6 for...of 语法，与项目中其他文件（var 为主）风格不一致。建议统一项目代码风格（全量迁移到 ES6+ 或保持 ES5）。"
+        }
+      ],
+      "praise": [
+        "代码极其简洁，复用已有工具函数，无冗余逻辑",
+        "直接使用属性选择器定位懒加载图片，语义清晰"
+      ]
+    }
+  ],
+  "cross_cutting_concerns": [
+    {
+      "category": "代码风格一致性",
+      "severity": "🟡 important",
+      "description": "项目中 ES5 (var, function) 与 ES6+ (const, for...of, arrow functions) 语法混用。img-lazyload.js 使用 const/for...of，而其他文件仍使用 var。建议统一迁移到 ES6+ 标准。",
+      "affected_files": ["js/utils.js", "js/events.js", "js/color-schema.js", "js/leancloud.js", "js/local-search.js", "js/plugins.js", "js/img-lazyload.js"]
+    },
+    {
+      "category": "重复代码",
+      "severity": "🟡 important",
+      "description": "HTMLElement.prototype.wrap 在 events.js 和 plugins.js 中完全重复定义。应提取到 utils.js 作为公共方法。",
+      "affected_files": ["js/events.js", "js/plugins.js"]
+    },
+    {
+      "category": "全局命名空间",
+      "severity": "🟢 nit",
+      "description": "所有 JS 文件通过 Fluid 全局命名空间组织，但缺少命名空间冲突检测。如果 Fluid 被意外覆盖，所有功能将静默失败。",
+      "affected_files": ["js/boot.js", "js/events.js", "js/utils.js", "js/plugins.js"]
+    },
+    {
+      "category": "前端安全",
+      "severity": "💡 suggestion",
+      "description": "leancloud.js 中的 API 密钥暴露、local-search.js 中的 innerHTML 拼接 XSS 风险，以及 color-schema.js 中 localStorage 敏感信息存储，都应在安全审计中重点关注。",
+      "affected_files": ["js/leancloud.js", "js/local-search.js", "js/color-schema.js"]
+    }
+  ],
+  "architecture": {
+    "pattern": "命名空间模块化 (Fluid.xxx)",
+    "coupling": "低耦合 — 各模块通过 Fluid 命名空间和 CONFIG 全局变量通信，无直接文件间依赖",
+    "strengths": [
+      "模块职责单一，易于定位和维护",
+      "IIFE 隔离私有作用域，避免全局变量泄漏",
+      "通过 CONFIG 全局变量实现配置与逻辑分离"
+    ],
+    "risks": [
+      "依赖脚本加载顺序（boot.js 需在 events.js 之前加载），但无显式依赖声明",
+      "缺少模块打包器(webpack/vite)，无法利用 tree-shaking 和代码分割",
+      "无版本化/缓存破坏策略，浏览器可能缓存旧版 JS 文件"
+    ]
+  },
+  "recommendations": [
+    {
+      "priority": "high",
+      "action": "提取重复的 HTMLElement.prototype.wrap 到 utils.js",
+      "rationale": "消除重复代码，避免行为不一致的风险"
+    },
+    {
+      "priority": "high",
+      "action": "统一 ES 语法标准（全部迁移到 ES6+）",
+      "rationale": "提升代码可读性和可维护性，利用现代浏览器优化"
+    },
+    {
+      "priority": "medium",
+      "action": "为 LeanCloud API 请求添加后端代理层",
+      "rationale": "避免 AppKey 暴露在前端，提升安全性"
+    },
+    {
+      "priority": "medium",
+      "action": "local-search.js 搜索结果使用 textContent 或 DOMPurify 转义",
+      "rationale": "防止 XSS 攻击"
+    },
+    {
+      "priority": "low",
+      "action": "添加构建工具（如 webpack/vite）进行打包和压缩",
+      "rationale": "减少 HTTP 请求数，利用缓存破坏和 tree-shaking"
+    }
+  ]
+}
