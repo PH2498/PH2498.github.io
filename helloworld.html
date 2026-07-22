@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!--
+  helloworld.html
+  ----------------------------------------------------------------------------
+  A minimal static "Hello World" page.
+
+  Source of truth (OpenSpec):
+    - openspec/changes/add-helloworld/specs/helloworld/spec.md
+    - openspec/changes/add-helloworld/design.md
+    - openspec/changes/add-helloworld/proposal.md
+
+  Spec requirements (all satisfied below):
+    - SHALL render the visible text "Hello World".
+    - SHALL use UTF-8 encoding (meta charset).
+    - SHALL declare lang="zh-CN".
+    - SHALL be openable directly in a browser (self-contained, no build step).
+  ----------------------------------------------------------------------------
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Document metadata -->
+  <title>Hello World</title>
+  <meta name="description" content="A minimal Hello World page rendered as static HTML.">
+  <meta name="author" content="OpenSpec add-helloworld">
+  <meta name="generator" content="OpenSpec add-helloworld">
+
+  <!-- Open Graph metadata for link previews -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Hello World">
+  <meta property="og:description" content="A minimal Hello World page rendered as static HTML.">
+  <meta property="og:locale" content="zh_CN">
+
+  <!-- Theme color for mobile browser chrome -->
+  <meta name="theme-color" content="#f5f5f5">
+
+  <style>
+    /* =========================================================================
+       Design tokens (CSS custom properties)
+       ========================================================================= */
+    :root {
+      /* Color palette */
+      --color-background: #f5f5f5;
+      --color-text: #333333;
+      --color-text-muted: #666666;
+      --color-card: #ffffff;
+      --color-border: #e0e0e0;
+
+      /* Typography */
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    "Helvetica Neue", Arial, sans-serif;
+      --font-size-title: 2.5rem;
+      --font-size-base: 1rem;
+
+      /* Spacing */
+      --spacing-base: 1rem;
+      --spacing-large: 2rem;
+
+      /* Layout */
+      --card-max-width: 32rem;
+      --card-padding: var(--spacing-large);
+      --card-radius: 0.5rem;
+      --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    /* =========================================================================
+       Reset / base
+       ========================================================================= */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: var(--spacing-base);
+      font-family: var(--font-stack);
+      font-size: var(--font-size-base);
+      line-height: 1.6;
+      color: var(--color-text);
+      background: var(--color-background);
+    }
+
+    /* =========================================================================
+       Layout
+       ========================================================================= */
+    .page {
+      width: 100%;
+      max-width: var(--card-max-width);
+      padding: var(--card-padding);
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--card-radius);
+      box-shadow: var(--card-shadow);
+      text-align: center;
+    }
+
+    /* =========================================================================
+       Typography
+       ========================================================================= */
+    h1 {
+      margin: 0 0 var(--spacing-base) 0;
+      font-size: var(--font-size-title);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--color-text);
+    }
+
+    .page__subtitle {
+      margin: 0 0 var(--spacing-large) 0;
+      font-size: var(--font-size-base);
+      color: var(--color-text-muted);
+    }
+
+    /* =========================================================================
+       Utilities
+       ========================================================================= */
+    /* Visually hidden, but available to screen readers */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* =========================================================================
+       Responsive adjustments
+       ========================================================================= */
+    @media (max-width: 480px) {
+      :root {
+        --font-size-title: 2rem;
+        --card-padding: 1.5rem;
+      }
+    }
+
+    /* =========================================================================
+       Reduced motion preference
+       ========================================================================= */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* =========================================================================
+       High contrast preference
+       Strengthen foreground/background contrast for users who need it.
+       ========================================================================= */
+    @media (prefers-contrast: more) {
+      :root {
+        --color-background: #ffffff;
+        --color-text: #000000;
+        --color-text-muted: #000000;
+        --color-border: #000000;
+      }
+
+      .page {
+        border-width: 2px;
+      }
+    }
+
+    /* =========================================================================
+       Print styles
+       Produce a clean, centered heading when the page is printed.
+       ========================================================================= */
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+
+      .page {
+        box-shadow: none;
+        border: none;
+        max-width: none;
+      }
+
+      .page__subtitle,
+      .sr-only,
+      noscript {
+        display: none;
+      }
+
+      h1 {
+        color: #000000;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page" role="main">
+    <h1>Hello World</h1>
+    <p class="page__subtitle">这是一个最小化的 Hello World 静态页面。</p>
+
+    <!--
+      Accessible summary: mirrors the visible heading for assistive tech
+      without altering the spec-mandated visible "Hello World" content.
+    -->
+    <p class="sr-only">Hello World page.</p>
+  </main>
+
+  <!-- No-JavaScript fallback notice; this page needs no scripting. -->
+  <noscript>
+    <p style="text-align:center;color:#666;">本页面为纯静态 HTML，无需 JavaScript。</p>
+  </noscript>
+</body>
+</html>
