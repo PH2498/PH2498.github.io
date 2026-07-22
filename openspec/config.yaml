@@ -1,0 +1,7 @@
+# OpenSpec configuration for the static blog site
+project_name: static-blog
+description: Hexo-style static HTML blog site
+rules:
+  - Keep pages as static HTML consistent with the existing site structure.
+  - Use Chinese (zh-CN) as the default language for new pages.
+  - Do not introduce build tooling; pages must be openable directly in a browser.
