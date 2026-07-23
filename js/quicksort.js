@@ -10,20 +10,43 @@
  *       Optional compareFn follows Array.prototype.sort semantics:
  *         compareFn(a, b) < 0  => a before b
  *         compareFn(a, b) > 0  => b before a
- *         compareFn(a, b) === 0 => order unchanged (stable w.r.t. partition)
+ *         compareFn(a, b) === 0 => relative order of equal elements is NOT
+ *         guaranteed (quicksort is an UNSTABLE sort; see note below).
  *   - Fluid.sort.quickSortInPlace(arr, [compareFn]) -> Array
  *       Sorts the given array in place and returns it.
  *
- * Default comparator orders numbers ascending; values are coerced via the
- * "<" operator so it also works for strings.
+ * Stability note:
+ *   Quicksort is inherently non-stable. The Lomuto partition places elements
+ *   equal to the pivot on its left side, but pivot swaps and median-of-three
+ *   exchanges can reorder equal elements. Callers that require stability
+ *   should pair the input with an original index and sort by [value, index].
+ *
+ * Default comparator:
+ *   Orders numbers ascending; values are coerced via the "<" operator so it
+ *   also works for strings. Non-function compareFn values fall back to the
+ *   default comparator (mirroring Array.prototype.sort, which ignores them).
+ *
+ * Input handling:
+ *   - null/undefined arr is treated as an empty array.
+ *   - Array-like objects (e.g. arguments) are coerced via Array.prototype.slice.
+ *   - quickSort never mutates the input; quickSortInPlace sorts in place.
  *
  * Implementation notes (design):
  *   - Lomuto partition with median-of-three pivot to avoid O(n^2) on
  *     already-sorted / reverse-sorted input.
- *   - Tail-recursion-free iterative stack for the larger half to bound stack
- *     depth to O(log n); the smaller half recurses.
+ *   - Iteration on the larger half plus recursion on the smaller half bounds
+ *     the recursion depth to O(log n).
  *   - Insertion sort for small sub-arrays (len <= INSERTION_THRESHOLD) which is
  *     faster in practice than recursing down to length 1.
+ *
+ * Complexity:
+ *   - Time:  O(n log n) average, O(n^2) worst case (mitigated by median-of-three).
+ *   - Space: O(log n) auxiliary (recursion on the smaller half only).
+ *
+ * @example
+ *   Fluid.sort.quickSort([3, 1, 2]);                  // [1, 2, 3]
+ *   Fluid.sort.quickSort([3, 1, 2], (a, b) => b - a); // [3, 2, 1]
+ *   Fluid.sort.quickSortInPlace([3, 1, 2]);           // [1, 2, 3] (same ref)
  */
 (function (root) {
   'use strict';
@@ -32,12 +55,29 @@
   var Fluid = root.Fluid || (root.Fluid = {});
   Fluid.sort = Fluid.sort || {};
 
+  // Sub-arrays at or below this length are handled by insertion sort, which is
+  // faster than recursing down to length 1 and reduces partitioning overhead.
   var INSERTION_THRESHOLD = 16;
 
+  // Default comparator: ascending order for numbers and (coercible) strings.
   function defaultCompare(a, b) {
     if (a < b) return -1;
     if (a > b) return 1;
     return 0;
+  }
+
+  // Resolve the caller-supplied compareFn. Non-function values (including the
+  // default undefined) fall back to defaultCompare, mirroring the behavior of
+  // Array.prototype.sort which ignores a non-function comparator instead of
+  // throwing. This keeps quickSort robust against bad input.
+  function resolveCompare(compareFn) {
+    return typeof compareFn === 'function' ? compareFn : defaultCompare;
+  }
+
+  // Coerce a possibly-null / array-like input into a real Array slice so the
+  // rest of the module always works on a genuine Array.
+  function coerceArray(arr) {
+    return Array.prototype.slice.call(arr || []);
   }
 
   // Median-of-three: order arr[lo], arr[mid], arr[hi] and place the median at
@@ -125,29 +165,46 @@
 
   /**
    * Returns a new sorted array; the input is not modified.
-   * @param {Array} arr
-   * @param {Function} [compareFn]
-   * @returns {Array}
+   *
+   * @param {Array|ArrayLike} arr Input array (or array-like). null/undefined
+   *   is treated as an empty array.
+   * @param {Function} [compareFn] Optional comparator with sort() semantics.
+   *   Non-function values are ignored and the default ascending comparator is
+   *   used.
+   * @returns {Array} A new array containing the sorted elements.
+   *
+   * @example
+   *   quickSort([3, 1, 2]);                   // [1, 2, 3]
+   *   quickSort([3, 1, 2], (a, b) => b - a);   // [3, 2, 1]
+   *   quickSort(null);                        // []
    */
   Fluid.sort.quickSort = function (arr, compareFn) {
-    var copy = Array.prototype.slice.call(arr || []);
+    var copy = coerceArray(arr);
     if (copy.length <= 1) {
       return copy;
     }
-    quickSortRange(copy, 0, copy.length - 1, compareFn || defaultCompare);
+    quickSortRange(copy, 0, copy.length - 1, resolveCompare(compareFn));
     return copy;
   };
 
   /**
    * Sorts the given array in place and returns it.
-   * @param {Array} arr
-   * @param {Function} [compareFn]
-   * @returns {Array}
+   *
+   * @param {Array} arr Input array to sort in place. null/undefined is treated
+   *   as an empty array.
+   * @param {Function} [compareFn] Optional comparator with sort() semantics.
+   *   Non-function values are ignored and the default ascending comparator is
+   *   used.
+   * @returns {Array} The same array reference, now sorted.
+   *
+   * @example
+   *   var a = [3, 1, 2];
+   *   quickSortInPlace(a); // a === [1, 2, 3]
    */
   Fluid.sort.quickSortInPlace = function (arr, compareFn) {
     var list = arr || [];
     if (list.length > 1) {
-      quickSortRange(list, 0, list.length - 1, compareFn || defaultCompare);
+      quickSortRange(list, 0, list.length - 1, resolveCompare(compareFn));
     }
     return list;
   };
